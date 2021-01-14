@@ -1,6 +1,6 @@
 import tableTop from "tabletop";
 
-const publicGoogleSheets = "https://docs.google.com/spreadsheets/d/11NqcF7C-FQtIf05DMV2fRNeiaWFCT3EaDi3t4ygR8Qo/edit?usp=sharing"
+const publicGoogleSheets = process.env.REACT_APP_PUBLIC_GOOGLE_SHEETS
 
 const getGoogleSheetData = async () => {
     try {
