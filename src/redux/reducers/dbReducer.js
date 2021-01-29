@@ -1,15 +1,16 @@
+import { SHEETS_NAMES } from "../../db";
 import { DBActions } from "../actions";
 
-const DBReducer = (state = { db: {} }, action) => {
+const db = (state = { db: {} }, action) => {
     switch (action.type) {
-        case DBActions.INIT_DB_ACTION_TYPE: {
+        case DBActions.init.INIT_DB_ACTION_TYPE: {
             const db = action.payload;
             return {
                 ...state,
                 db: {
                     ...state.db,
-                    tricks: db.tricks.elements,
-                    userRoles: db.userRoles.elements
+                    tricks: db[SHEETS_NAMES.trickes].elements,
+                    userRoles: db[SHEETS_NAMES.userRoles].elements
                 }
             }
         }
@@ -18,4 +19,4 @@ const DBReducer = (state = { db: {} }, action) => {
     }
 }
 
-export default DBReducer;
+export default db;
