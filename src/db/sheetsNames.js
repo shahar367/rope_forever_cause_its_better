@@ -1,5 +1,5 @@
 const SHEETS_NAMES = {
-    trickes: "tricks",
+    tricks: "tricks",
     userRoles: 'userRoles'
 }
 

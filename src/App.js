@@ -1,38 +1,38 @@
 
 import { useEffect } from 'react';
-import { useDispatch, useStore } from 'react-redux';
-import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
 import { DBService } from './db';
-import { DBActions } from './redux/actions';
+import HomePage from './pages/homePage';
+import { DBActions, InfraActions } from './redux/actions';
+import './App.css';
+import { REDUCERS_NAMES } from './redux/reducers';
+import { CircularProgress } from '@material-ui/core';
 
 function App() {
 
   const dispatch = useDispatch();
-  const store = useStore();
+
+  const { isFinishLoading } = useSelector(state => ({ isFinishLoading: state[REDUCERS_NAMES.infra].isFinishLoading }))
 
   useEffect(() => {
     const fetchGoogleSheetsData = async () => {
       try {
         const googleSheetsData = await DBService.init()
         dispatch(DBActions.init.initDB(googleSheetsData))
+        dispatch(InfraActions.finishLoading.setIsDBFinishLoading(true))
       }
       catch (err) {
         console.log(err);
+        dispatch(InfraActions.finishLoading.setIsDBFinishLoading(false))
       }
     }
     fetchGoogleSheetsData();
-  }, [dispatch, store])
+  }, [])
 
 
   return (
-    <div className="App">
-      <iframe
-        title='טיפוס רוסי'
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/hTg5Ez3lIHs"
-        frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen></iframe>
+    <div>
+      {isFinishLoading ? < HomePage /> : <CircularProgress />}
     </div>
   );
 }

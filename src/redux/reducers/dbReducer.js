@@ -7,11 +7,8 @@ const db = (state = { db: {} }, action) => {
             const db = action.payload;
             return {
                 ...state,
-                db: {
-                    ...state.db,
-                    tricks: db[SHEETS_NAMES.trickes].elements,
-                    userRoles: db[SHEETS_NAMES.userRoles].elements
-                }
+                [SHEETS_NAMES.tricks]: db[SHEETS_NAMES.tricks].elements,
+                [SHEETS_NAMES.userRoles]: db[SHEETS_NAMES.userRoles].elements
             }
         }
         default:
