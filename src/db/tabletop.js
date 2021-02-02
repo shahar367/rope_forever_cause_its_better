@@ -43,7 +43,7 @@ const getGoogleSheetData = async () => {
 
 const ToBoolean = (value) => {
     if (typeof value === "string") {
-        return Boolean(value.toLocaleLowerCase().indexOf('x') !== -1)
+        return Boolean(value.trim().length > 0)
     } else {
         return
     }

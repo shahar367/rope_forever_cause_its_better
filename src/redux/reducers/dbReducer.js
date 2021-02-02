@@ -1,7 +1,7 @@
 import { SHEETS_NAMES } from "../../db";
 import { DBActions } from "../actions";
 
-const db = (state = { db: {} }, action) => {
+const db = (state = { }, action) => {
     switch (action.type) {
         case DBActions.init.INIT_DB_ACTION_TYPE: {
             const db = action.payload;

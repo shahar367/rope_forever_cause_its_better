@@ -14,7 +14,7 @@ const TRICKS_COLUMN_NAMES = {
     lasso: "Lasso",
     other: "Other",
     tishu: "Tishu",
-    force: "Force",
+    force: "Force"
 }
 
 export default TRICKS_COLUMN_NAMES;

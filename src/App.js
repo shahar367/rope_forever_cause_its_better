@@ -6,7 +6,9 @@ import HomePage from './pages/homePage';
 import { DBActions, InfraActions } from './redux/actions';
 import './App.css';
 import { REDUCERS_NAMES } from './redux/reducers';
-import { CircularProgress } from '@material-ui/core';
+import { Box, CircularProgress, CssBaseline, ThemeProvider } from '@material-ui/core';
+import theme, { RTL } from './theme';
+import AppLayout from './layouts/appLayout';
 
 function App() {
 
@@ -31,9 +33,20 @@ function App() {
 
 
   return (
-    <div>
-      {isFinishLoading ? < HomePage /> : <CircularProgress />}
-    </div>
+    <ThemeProvider theme={theme}>
+      <RTL>
+        <CssBaseline />
+        <AppLayout>
+          {isFinishLoading ?
+            < HomePage /> :
+            (
+              <Box className='progressWrapper'>
+                <CircularProgress size={100}/>
+              </Box>
+            )}
+        </AppLayout>
+      </RTL>
+    </ThemeProvider>
   );
 }
 

@@ -1,19 +1,24 @@
-import { CircularProgress } from "@material-ui/core";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import Trick from "../components/trick";
+import { useSelector, useStore } from "react-redux";
 import { SHEETS_NAMES } from "../db";
 import { REDUCERS_NAMES } from "../redux/reducers";
+import Trick from "../components/trick";
+import { Box, Divider } from "@material-ui/core";
+import styles from '../css/homePage.module.css';
 
 const HomePage = () => {
-    const { tricks } = useSelector((state) => {
-        return { tricks: state[REDUCERS_NAMES.db][SHEETS_NAMES.tricks] }
+    const { tricks, state } = useSelector((state) => {
+        return { tricks: state[REDUCERS_NAMES.db][SHEETS_NAMES.tricks], state: state }
     })
     useEffect(() => {
-    }, [])
+        console.log(state);
+    }, [state])
 
     return (
-        <div>{tricks !== undefined ? tricks.map((trick, index) => (<Trick trick={trick} key={`trick-${index}`} />)) : <CircularProgress />}</div>
+        <Box className={styles.layout}>{tricks.map((trick, index) => [
+            <Trick trick={trick} index={index} />,
+            <Divider key={`divider-${index}`} />
+        ])}</Box>
     )
 }
 
