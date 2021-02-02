@@ -14,6 +14,8 @@ The DB is a google sheets in this [link](https://docs.google.com/spreadsheets/d/
 for now the only contributors is me and sagi and **only sagi have the option to add contributors** 
 
 ## Run Local
-`npm install`
+```
+npm install
 add .env file like in the above
-`npm start`
+npm start
+```
