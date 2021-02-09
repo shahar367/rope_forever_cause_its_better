@@ -1,2 +1,2 @@
-export { default as DBActions } from "./dbActions"
+export { default as TricksActions } from "./trickActions"
 export { default as InfraActions } from "./infraActions"

@@ -1,12 +1,12 @@
 import { InfraActions } from "../actions";
 
-const infra = (state = { isFinishLoading: false }, action) => {
+const infra = (state = { isFinishFetching: false }, action) => {
     switch (action.type) {
-        case InfraActions.finishLoading.SET_IS_DB_FINISH_LOADING: {
+        case InfraActions.onInit.dbFetching.SET_IS_DB_FINISH_FETCHING: {
             const isFinish = action.payload;
             return {
                 ...state,
-                isFinishLoading: isFinish
+                isFinishFetching: isFinish
             }
         }
         default:
