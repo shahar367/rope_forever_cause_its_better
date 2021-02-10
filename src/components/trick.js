@@ -3,11 +3,13 @@ import { TRICKS_COLUMN_NAMES } from '../db'
 import styles from '../css/trick.module.css'
 import Level from './level';
 
+
 const Trick = ({ trick, index }) => {
     const notFilmed = 'לא צולם';
     const handleClick = (event) => !trick[TRICKS_COLUMN_NAMES.filmed] ? event.preventDefault() : ''
     const filterIconBulider = () => {
         let icons = [];
+        // Object.values(TRICKS_COLUMN_NAMES.filters).forEach(filter => {if(trick[filter]) icons.push(<Box style={{background: `url(..${})`}}></Box>)})
         return icons;
     }
     return (

@@ -1,6 +1,6 @@
 import { TricksActions } from "../actions";
 
-const tricks = (state = { trickListPageIndex: 0, numberOfTricksOnPage: 10, }, action) => {
+const tricks = (state = { trickListPageIndex: 1, numberOfTricksOnPage: 10, }, action) => {
     switch (action.type) {
         case TricksActions.init.INIT_TRICKS_LIST: {
             const trickList = action.payload;

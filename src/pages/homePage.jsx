@@ -33,7 +33,7 @@ const HomePage = () => {
         let pageIndex = state[REDUCERS_NAMES.tricks].trickListPageIndex
         let numberInPage = state[REDUCERS_NAMES.tricks].numberOfTricksOnPage
         return {
-            tricks: state[REDUCERS_NAMES.tricks].list.slice(0, (pageIndex + 1) * numberInPage),
+            tricks: state[REDUCERS_NAMES.tricks].list.slice(0, pageIndex * numberInPage),
             pageIndex,
             numberInPage,
             maxNumberOfTricks: state[REDUCERS_NAMES.tricks].list.length,
@@ -44,7 +44,7 @@ const HomePage = () => {
 
     const handlePaggination = () => {
         if (getScrollTop() < getDocumentHeight() - window.innerHeight) return;
-        else if ((pageIndex) * numberInPage > maxNumberOfTricks)    return;
+        else if (pageIndex * numberInPage > maxNumberOfTricks) return;
         dispatch(TricksActions.trickList.setNextPageIndex(++pageIndex))
     }
 
