@@ -1,11 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { REDUCERS_NAMES } from "../redux/reducers";
-import Trick from "../components/trick";
-import { Box, Divider } from "@material-ui/core";
+import { Box, Divider, Drawer, IconButton, Typography, useTheme } from "@material-ui/core";
+import { MenuRounded } from "@material-ui/icons";
 import { useEventListener } from "../hooks/useEventListener";
-import { TricksActions } from "../redux/actions";
+import { InfraActions, TricksActions } from "../redux/actions";
+import Filters from "../containers/filters";
+import Trick from "../components/trick";
 import styles from '../css/homePage.module.css';
+import { useTranslation } from "react-i18next";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 //#region helpMethod
 const getScrollTop = () => {
@@ -27,38 +31,86 @@ const getDocumentHeight = () => {
 
 const HomePage = () => {
 
+    const { t } = useTranslation('common');
+
+    const theme = useTheme();
+
+    const size = useWindowSize();
+
     const dispatch = useDispatch();
 
-    let { tricks, pageIndex, numberInPage, maxNumberOfTricks, state } = useSelector((state) => {
+    let { tricks, pageIndex, numberInPage, maxNumberOfTricks, openDrawer, activeFilters, state } = useSelector((state) => {
         let pageIndex = state[REDUCERS_NAMES.tricks].trickListPageIndex
         let numberInPage = state[REDUCERS_NAMES.tricks].numberOfTricksOnPage
+        let activeFilters = state[REDUCERS_NAMES.tricks].activeFilters
+        let filteredList = state[REDUCERS_NAMES.tricks].list.filter((item) => {
+            let filteredItem = true;
+            if (activeFilters.length > 0) {
+                activeFilters.forEach(filter => {
+                    filteredItem = filteredItem && item[filter]
+                })
+            }
+            return filteredItem;
+        })
         return {
-            tricks: state[REDUCERS_NAMES.tricks].list.slice(0, pageIndex * numberInPage),
+            tricks: filteredList.slice(0, pageIndex * numberInPage),
             pageIndex,
             numberInPage,
             maxNumberOfTricks: state[REDUCERS_NAMES.tricks].list.length,
+            openDrawer: state[REDUCERS_NAMES.infra].homePageInfra.openDrawer,
+            activeFilters,
             state: state
         }
     })
 
-
     const handlePaggination = () => {
         if (getScrollTop() < getDocumentHeight() - window.innerHeight) return;
         else if (pageIndex * numberInPage > maxNumberOfTricks) return;
-        dispatch(TricksActions.trickList.setNextPageIndex(++pageIndex))
+        dispatch(TricksActions.trickList.pagging.setNextPageIndex(++pageIndex))
     }
 
     useEventListener("scroll", handlePaggination, window);
 
+    const mobile = size.width <= theme.breakpoints.values.sm;
+
     useEffect(() => {
+        console.log(size.width <= theme.breakpoints.values.sm);
         console.log(state)
-    }, [])
+    }, [size])
+
+    const handleToggleDrawer = () => {
+        dispatch(InfraActions.homePage.toggleHomePageDrawer(!openDrawer))
+    }
 
     return (
-        <Box className={styles.layout}>{tricks.map((trick, index) => [
-            <Trick trick={trick} index={index} />,
-            <Divider key={`divider-${index}`} />
-        ])}</Box>
+        <Box className={styles.layout}>
+            <Box className={styles.main} style={{ flex: `0 0 ${mobile ? '100%' : 'calc(100% - 215px)'}` }}>
+                {mobile ? <IconButton className={styles.openDrawerButton} onClick={handleToggleDrawer}>
+                    <MenuRounded />
+                </IconButton> : null}
+                {activeFilters.map((filter, index) => (<Typography
+                    className={styles.activeFilter}
+                    key={`activefilter-${index}-${filter}`}
+                    variant='subtitle1'>
+                    #{t(`tricks.filters.${filter.toLowerCase().split(" ").join("")}`)}
+                </Typography>))}
+                {tricks.map((trick, index) => [
+                    <Trick trick={trick} index={index} />,
+                    <Divider key={`divider-${index}`} />
+                ])}
+            </Box>
+            {mobile ?
+                (<Drawer anchor='right' open={openDrawer} onClose={handleToggleDrawer}>
+                    <Filters />
+                </Drawer>) :
+                [
+                    <Divider className={styles.sidebarDivider} orientation="vertical" />,
+                    <Box className={styles.sidebar}>
+                        <Filters />
+                    </Box>
+                ]
+            }
+        </Box>
     )
 }
 

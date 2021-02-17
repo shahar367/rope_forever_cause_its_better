@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react"
 import { Box, fade, Paper, Typography } from "@material-ui/core"
 import { common, green, red, yellow } from "@material-ui/core/colors"
-import { TRICKS_COLUMN_NAMES } from "../db"
+import { useTranslation } from "react-i18next"
 import styles from '../css/level.module.css'
+import { TRICKS_COLUMN_NAMES } from "../db"
+
+//#region objects
 
 const levelColorSpectrom = {
     1: {
@@ -55,26 +57,25 @@ const levelColorSpectrom = {
     }
 }
 
+//#endregion
+
 const Level = ({ name, level, levelType }) => {
 
-    const [levelTypeHebrow, setLevelTypeHebrow] = useState()
-
-    useEffect(() => {
+    const { t } = useTranslation('common');
+    const getTranslation = () => {
         switch (levelType) {
             case TRICKS_COLUMN_NAMES.difficulty:
-                setLevelTypeHebrow('רמת קושי')
-                break;
+                return 'difficulty';
             case TRICKS_COLUMN_NAMES.levelOfRisk:
-                setLevelTypeHebrow('רמת סיכון')
-                break;
+                return 'levelOfRisk';
             default:
-                break;
+                return '';
         }
-    }, [levelType])
+    }
 
     return (
         <Box key={`trick:${name}-${levelType}:${level}`} className={styles.levelWrapper}>
-            <Typography variant="caption">{levelTypeHebrow} :</Typography>
+            <Typography variant="caption">{t(`tricks.levels.${getTranslation()}`)} :</Typography>
             <Paper variant="outlined" className={styles.level}
                 style={{
                     backgroundColor: `${levelColorSpectrom[level] ? levelColorSpectrom[level].color : 'white'}`,

@@ -1,3 +1,33 @@
 .layout {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
+    /* padding-top: 56px; */
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0 20px;
+}
+
+.openDrawerButton {
+    max-width: 50px;
+}
+
+.activeFilter {
+    padding-left: 10px;
+}
+
+.sidebarDivider {
+    position: fixed;
+    left: 216px;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    display: flex;
+    flex: 0 0 20%;
 }

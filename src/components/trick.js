@@ -2,10 +2,11 @@ import { Box, Divider, Link, Typography } from '@material-ui/core'
 import { TRICKS_COLUMN_NAMES } from '../db'
 import styles from '../css/trick.module.css'
 import Level from './level';
+import { useTranslation } from 'react-i18next';
 
 
 const Trick = ({ trick, index }) => {
-    const notFilmed = 'לא צולם';
+    const { t } = useTranslation('common');
     const handleClick = (event) => !trick[TRICKS_COLUMN_NAMES.filmed] ? event.preventDefault() : ''
     const filterIconBulider = () => {
         let icons = [];
@@ -23,7 +24,7 @@ const Trick = ({ trick, index }) => {
             <Box component='section' className={styles.trickInfoSection}>
                 <Box className={styles.trickTitle}>
                     <Typography variant="h6" className={styles.trickName}>{trick[TRICKS_COLUMN_NAMES.name]}</Typography>
-                    {!trick[TRICKS_COLUMN_NAMES.filmed] ? <Typography key={`trick-notFilmed-${index}`} component="span" variant="subtitle1" color='textSecondary'>{notFilmed}</Typography> : null}
+                    {!trick[TRICKS_COLUMN_NAMES.filmed] ? <Typography key={`trick-notFilmed-${index}`} component="span" variant="subtitle1" color='textSecondary'>{t('tricks.notFilmed')}</Typography> : null}
                 </Box>
                 {trick[TRICKS_COLUMN_NAMES.difficulty] || trick[TRICKS_COLUMN_NAMES.levelOfRisk] ?
                     <Box className={styles.trickLevels}>
@@ -36,7 +37,7 @@ const Trick = ({ trick, index }) => {
                     </Box> : null
                 }
             </Box>
-            <Divider orientation="vertical" />
+            {/* <Divider orientation="vertical" /> */}
             <Box component='section'>
                 {filterIconBulider()}
             </Box>

@@ -17,7 +17,7 @@ const TRICKS_COLUMN_NAMES = {
         tishu: "Tishu",
         force: "Force",
         tishuRecommended: "Tishu recommended",
-        RopeRecommended: "Rope recommended"
+        ropeRecommended: "Rope recommended"
     }
 }
 

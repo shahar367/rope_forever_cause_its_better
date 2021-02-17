@@ -1,0 +1,23 @@
+{
+    "tricks": {
+        "notFilmed": "not filmed yet",
+        "levels": {
+            "difficulty" :"level of difficulty",
+            "levelOfRisk": "level of risk"
+        },
+        "filters": {
+            "drops": "Drops",
+            "climbing": "Climbing",
+            "positions": "Positions",
+            "swings": "Swings",
+            "dismount": "Dismount",
+            "transitions": "Transitions",
+            "lasso": "Lasso",
+            "other": "Other",
+            "tishu": "Tishu",
+            "force": "Force",
+            "tishurecommended": "Tishu Recommended",
+            "roperecommended": "Rope Recommended"
+        }
+    }
+}
