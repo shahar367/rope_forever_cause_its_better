@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { REDUCERS_NAMES } from "../redux/reducers";
-import { Box, Divider, Drawer, IconButton, Typography, useTheme } from "@material-ui/core";
+import { Box, Divider, Drawer, IconButton, TextField, Typography, useTheme } from "@material-ui/core";
 import { MenuRounded } from "@material-ui/icons";
 import { useEventListener } from "../hooks/useEventListener";
 import { InfraActions, TricksActions } from "../redux/actions";
@@ -10,6 +10,8 @@ import Trick from "../components/trick";
 import styles from '../css/homePage.module.css';
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "../hooks/useWindowSize";
+import { TRICKS_COLUMN_NAMES } from "../db";
+import { useDebouncedCallback } from "use-debounce/lib";
 
 //#region helpMethod
 const getScrollTop = () => {
@@ -39,16 +41,22 @@ const HomePage = () => {
 
     const dispatch = useDispatch();
 
+    const mobile = size.width <= theme.breakpoints.values.sm;
+
     let { tricks, pageIndex, numberInPage, maxNumberOfTricks, openDrawer, activeFilters, state } = useSelector((state) => {
         let pageIndex = state[REDUCERS_NAMES.tricks].trickListPageIndex
         let numberInPage = state[REDUCERS_NAMES.tricks].numberOfTricksOnPage
         let activeFilters = state[REDUCERS_NAMES.tricks].activeFilters
+        let freeSearch = state[REDUCERS_NAMES.tricks].freeSearch
         let filteredList = state[REDUCERS_NAMES.tricks].list.filter((item) => {
             let filteredItem = true;
             if (activeFilters.length > 0) {
                 activeFilters.forEach(filter => {
                     filteredItem = filteredItem && item[filter]
                 })
+            }
+            if (freeSearch) {
+                filteredItem = filteredItem && item[TRICKS_COLUMN_NAMES.name].includes(freeSearch)
             }
             return filteredItem;
         })
@@ -71,16 +79,20 @@ const HomePage = () => {
 
     useEventListener("scroll", handlePaggination, window);
 
-    const mobile = size.width <= theme.breakpoints.values.sm;
-
     useEffect(() => {
-        console.log(size.width <= theme.breakpoints.values.sm);
         console.log(state)
-    }, [size])
+    }, [])
 
     const handleToggleDrawer = () => {
         dispatch(InfraActions.homePage.toggleHomePageDrawer(!openDrawer))
     }
+
+    const handleSearch = (event) => {
+        const newSearch = event.target.value;
+        dispatch(TricksActions.trickList.filters.freeSearchInputChange(newSearch))
+    }
+
+    const debouncedSearch = useDebouncedCallback(handleSearch, 200);
 
     return (
         <Box className={styles.layout}>
@@ -88,6 +100,12 @@ const HomePage = () => {
                 {mobile ? <IconButton className={styles.openDrawerButton} onClick={handleToggleDrawer}>
                     <MenuRounded />
                 </IconButton> : null}
+                <TextField
+                    label="Search input"
+                    margin="normal"
+                    variant="outlined"
+                    onInput={debouncedSearch.callback}
+                    InputProps={{ type: 'search' }} />
                 {activeFilters.map((filter, index) => (<Typography
                     className={styles.activeFilter}
                     key={`activefilter-${index}-${filter}`}

@@ -1,6 +1,6 @@
 import { TricksActions } from "../actions";
 
-const tricks = (state = { trickListPageIndex: 1, numberOfTricksOnPage: 10, activeFilters: [] }, action) => {
+const tricks = (state = { trickListPageIndex: 1, numberOfTricksOnPage: 10, activeFilters: [], freeSearch: '' }, action) => {
     switch (action.type) {
         case TricksActions.init.INIT_TRICKS_LIST: {
             const trickList = action.payload;
@@ -28,6 +28,13 @@ const tricks = (state = { trickListPageIndex: 1, numberOfTricksOnPage: 10, activ
             return {
                 ...state,
                 activeFilters: [...state.activeFilters].filter(filter => filter !== removeFilter)
+            }
+        }
+        case TricksActions.trickList.filters.FREE_SEARCH_INPUT_CHANGE: {
+            const freeSearch = action.payload;
+            return {
+                ...state,
+                freeSearch: freeSearch
             }
         }
         default:
