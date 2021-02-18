@@ -1,4 +1,7 @@
 {
+    "infra": {
+        "search": "search"
+    },
     "tricks": {
         "notFilmed": "not filmed yet",
         "levels": {

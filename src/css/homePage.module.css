@@ -9,6 +9,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    flex: 0 0 calc(100% - 215px);
     padding: 0 20px;
 }
 
@@ -16,8 +17,28 @@
     max-width: 50px;
 }
 
+.searchInputContainer {
+    position: fixed;
+    min-height: 56px;
+    top: 0;
+    right: 0px;
+    padding: 0 40px;
+    padding-top: 16px;
+    padding-bottom: 8px;
+    width: calc(100% - 215px);
+    background-color: white;
+}
+
+.searchInput {
+    width: 100%;
+}
+
 .activeFilter {
     padding-left: 10px;
+}
+
+.trickListContainer {
+    margin-top: 80px;
 }
 
 .sidebarDivider {
@@ -30,4 +51,21 @@
     left: 0;
     display: flex;
     flex: 0 0 20%;
+}
+
+@media screen and (max-width: 600px) {
+    .main {
+        flex: 0 0 100%;
+        padding: 0 5px;
+    }
+    .searchInputContainer {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+    .searchInput {
+        max-width: 85%;
+    }
 }

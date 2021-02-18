@@ -1,4 +1,7 @@
 {
+    "infra": {
+        "search": "חיפוש"
+    },
     "tricks": {
         "notFilmed": "לא צולם",
         "levels": {

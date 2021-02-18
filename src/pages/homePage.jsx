@@ -96,26 +96,31 @@ const HomePage = () => {
 
     return (
         <Box className={styles.layout}>
-            <Box className={styles.main} style={{ flex: `0 0 ${mobile ? '100%' : 'calc(100% - 215px)'}` }}>
-                {mobile ? <IconButton className={styles.openDrawerButton} onClick={handleToggleDrawer}>
-                    <MenuRounded />
-                </IconButton> : null}
-                <TextField
-                    label="Search input"
-                    margin="normal"
-                    variant="outlined"
-                    onInput={debouncedSearch.callback}
-                    InputProps={{ type: 'search' }} />
-                {activeFilters.map((filter, index) => (<Typography
+            <Box className={styles.main}>
+                <Box className={styles.searchInputContainer}>
+                    {mobile ? <IconButton className={styles.openDrawerButton} onClick={handleToggleDrawer}>
+                        <MenuRounded />
+                    </IconButton> : null}
+                    <TextField
+                        className={styles.searchInput}
+                        label={t("infra.search")}
+                        variant="outlined"
+                        onInput={debouncedSearch.callback}
+                        InputProps={{ type: 'search' }}
+                    />
+                </Box>
+                {mobile ? activeFilters.map((filter, index) => (<Typography
                     className={styles.activeFilter}
                     key={`activefilter-${index}-${filter}`}
                     variant='subtitle1'>
                     #{t(`tricks.filters.${filter.toLowerCase().split(" ").join("")}`)}
-                </Typography>))}
-                {tricks.map((trick, index) => [
-                    <Trick trick={trick} index={index} />,
-                    <Divider key={`divider-${index}`} />
-                ])}
+                </Typography>)) : null}
+                <Box className={styles.trickListContainer}>
+                    {tricks.map((trick, index) => [
+                        <Trick trick={trick} index={index} />,
+                        <Divider key={`divider-${index}`} />
+                    ])}
+                </Box>
             </Box>
             {mobile ?
                 (<Drawer anchor='right' open={openDrawer} onClose={handleToggleDrawer}>
