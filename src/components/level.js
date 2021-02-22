@@ -8,53 +8,53 @@ import { TRICKS_COLUMN_NAMES } from "../db"
 
 const levelColorSpectrom = {
     1: {
-        color: green[200],
-        textColor: fade(common.black, 0.8)
-    },
-    2: {
         color: green[400],
         textColor: fade(common.black, 0.8)
     },
-    3: {
+    2: {
         color: green[600],
-        textColor: fade(common.white, 0.8)
-    },
-    4: {
-        color: green[800],
-        textColor: fade(common.white, 0.8)
-    },
-    5: {
-        color: yellow[200],
         textColor: fade(common.black, 0.8)
     },
-    6: {
-        color: yellow[400],
-        textColor: fade(common.black, 0.8)
-    },
-    7: {
+    3: {
         color: yellow[600],
         textColor: fade(common.black, 0.8)
     },
-    8: {
+    4: {
         color: yellow[800],
         textColor: fade(common.black, 0.8)
     },
-    9: {
-        color: red[400],
-        textColor: fade(common.black, 0.8)
-    },
-    10: {
+    5: {
         color: red[600],
         textColor: fade(common.white, 0.8)
     },
-    11: {
+    6: {
         color: red[800],
         textColor: fade(common.white, 0.8)
     },
-    12: {
-        color: fade(common.black, 0.8),
-        textColor: fade(common.white, 0.8)
-    }
+    // 7: {
+    //     color: yellow[600],
+    //     textColor: fade(common.black, 0.8)
+    // },
+    // 8: {
+    //     color: yellow[800],
+    //     textColor: fade(common.black, 0.8)
+    // },
+    // 9: {
+    //     color: red[400],
+    //     textColor: fade(common.black, 0.8)
+    // },
+    // 10: {
+    //     color: red[600],
+    //     textColor: fade(common.white, 0.8)
+    // },
+    // 11: {
+    //     color: red[800],
+    //     textColor: fade(common.white, 0.8)
+    // },
+    // 12: {
+    //     color: fade(common.black, 0.8),
+    //     textColor: fade(common.white, 0.8)
+    // }
 }
 
 //#endregion

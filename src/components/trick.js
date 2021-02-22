@@ -1,8 +1,9 @@
-import { Box, Divider, Link, Typography } from '@material-ui/core'
+import { Box, Divider, Icon, Link, Typography } from '@material-ui/core'
 import { TRICKS_COLUMN_NAMES } from '../db'
 import styles from '../css/trick.module.css'
 import Level from './level';
 import { useTranslation } from 'react-i18next';
+import { ReactComponent as Climbing } from '../assets/svg/climbing.svg';
 
 
 const Trick = ({ trick, index }) => {
@@ -10,7 +11,15 @@ const Trick = ({ trick, index }) => {
     const handleClick = (event) => !trick[TRICKS_COLUMN_NAMES.filmed] ? event.preventDefault() : ''
     const filterIconBulider = () => {
         let icons = [];
-        // Object.values(TRICKS_COLUMN_NAMES.filters).forEach(filter => {if(trick[filter]) icons.push(<Box style={{background: `url(..${})`}}></Box>)})
+        Object.values(TRICKS_COLUMN_NAMES.filters).forEach(filter => {
+            if (trick[filter]) {
+                icons.push(
+                    <Icon color='primary'>
+                        <Climbing fill='currentColor' width={20} />
+                    </Icon>
+                )
+            }
+        })
         return icons;
     }
     return (
@@ -37,8 +46,10 @@ const Trick = ({ trick, index }) => {
                     </Box> : null
                 }
             </Box>
-            {/* <Divider orientation="vertical" /> */}
-            <Box component='section'>
+            <Box component='section' className={styles.trickDescripationSection}>
+                <Typography>{trick[TRICKS_COLUMN_NAMES.notes]}</Typography>
+            </Box>
+            <Box component='section' className={styles.trickFiltersSection}>
                 {filterIconBulider()}
             </Box>
         </Link>

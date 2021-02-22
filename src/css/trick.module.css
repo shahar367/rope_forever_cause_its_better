@@ -1,6 +1,6 @@
 .trick {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     cursor: pointer;
     padding: 5px 10px;
@@ -8,12 +8,14 @@
 .trick:hover {
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.12);
 }
+
 .trickInfoSection {
-    flex: 0 1 90%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding-bottom: 4px;
+    margin-left: 16px;
+    flex: 1 0 35%;
 }
 .trickTitle {
     display: flex;
@@ -28,4 +30,19 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.trickDescripationSection {
+    flex: 0 1 50%;
+}
+
+.trickFiltersSection {
+    margin-right: 16px;
+    flex-basis: 3%;
+}
+
+@media screen and (max-width: 600px) {
+    .trickDescripationSection {
+        flex: 0 1 35%;
+    }
 }
