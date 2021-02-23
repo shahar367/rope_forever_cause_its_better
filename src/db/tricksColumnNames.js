@@ -5,16 +5,20 @@ const TRICKS_COLUMN_NAMES = {
     levelOfRisk: "Level of risk",
     notes: "Notes",
     link: "Link",
-    drops: "Drops",
-    climbing: "Climbing",
-    positions: "Positions",
-    swings: "Swings",
-    dismount: "Dismount",
-    transitions: "Transitions",
-    lasso: "Lasso",
-    other: "Other",
-    tishu: "Tishu",
-    force: "Force"
+    filters: {
+        drops: "Drops",
+        climbing: "Climbing",
+        positions: "Positions",
+        swings: "Swings",
+        dismount: "Dismount",
+        transitions: "Transitions",
+        lasso: "Lasso",
+        other: "Other",
+        tishu: "Tishu",
+        force: "Force",
+        tishuRecommended: "Tishu recommended",
+        ropeRecommended: "Rope recommended"
+    }
 }
 
 export default TRICKS_COLUMN_NAMES;

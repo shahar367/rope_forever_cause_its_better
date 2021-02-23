@@ -1,14 +1,14 @@
 import { combineReducers } from "redux";
-import db from "./dbReducer";
+import tricks from "./tricksReducer";
 import infra from "./infraReducer";
 
 const rootReducer = combineReducers({
-    db,
+    tricks,
     infra,
 })
 
 const REDUCERS_NAMES = {
-    db: "db",
+    tricks: "tricks",
     infra: "infra"
 }
 

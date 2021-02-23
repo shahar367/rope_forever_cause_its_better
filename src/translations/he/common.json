@@ -1,0 +1,26 @@
+{
+    "infra": {
+        "search": "חיפוש"
+    },
+    "tricks": {
+        "notFilmed": "לא צולם",
+        "levels": {
+            "difficulty": "רמת קושי",
+            "levelOfRisk": "רמת סיכון"
+        },
+        "filters": {
+            "drops": "דרופים",
+            "climbing": "טיפוסים",
+            "positions": "פוזיציות",
+            "swings": "סווינגים",
+            "dismount": "ירידות",
+            "transitions": "מעברים",
+            "lasso": "לאסו",
+            "other": "שונות",
+            "tishu": "טיסו",
+            "force": "כוח",
+            "tishurecommended": "מומלץ טיסו",
+            "roperecommended": "מומלץ חבל"
+        }
+    }
+}

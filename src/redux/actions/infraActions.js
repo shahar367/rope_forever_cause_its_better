@@ -1,11 +1,21 @@
-const SET_IS_DB_FINISH_LOADING = "SET_IS_DB_FINISH_LOADING";
+const SET_IS_DB_FINISH_FETCHING = "SET_IS_DB_FINISH_FETCHING";
+const TOGGLE_HOME_PAGE_DRAWER = "TOGGLE_HOME_PAGE_DRAWER";
 
 const InfraActions = ({
-    finishLoading: {
-        SET_IS_DB_FINISH_LOADING: SET_IS_DB_FINISH_LOADING,
-        setIsDBFinishLoading: (isFinish) => ({
-            type: SET_IS_DB_FINISH_LOADING,
-            payload: isFinish
+    onInit: {
+        dbFetching: {
+            SET_IS_DB_FINISH_FETCHING: SET_IS_DB_FINISH_FETCHING,
+            setIsDBFinishFetching: (isFinish) => ({
+                type: SET_IS_DB_FINISH_FETCHING,
+                payload: isFinish
+            })
+        },
+    },
+    homePage: {
+        TOGGLE_HOME_PAGE_DRAWER: TOGGLE_HOME_PAGE_DRAWER,
+        toggleHomePageDrawer: (isOpen) => ({
+            type: TOGGLE_HOME_PAGE_DRAWER,
+            payload: isOpen
         })
     }
 })

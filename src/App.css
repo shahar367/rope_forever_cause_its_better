@@ -1,13 +1,13 @@
-.progressWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
 .appLayout {
   display: flex;
   height: 100%;
   width: 100%;
   padding: 10px 20px;
+}
+
+.progressWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
