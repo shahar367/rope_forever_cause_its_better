@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DBService, SHEETS_NAMES } from './db';
-import TrickListPage from './pages/trickListPage';
 import { InfraActions, TricksActions } from './redux/actions';
 import './App.css';
 import { REDUCERS_NAMES } from './redux/reducers';
@@ -10,7 +9,9 @@ import { Box, CircularProgress, CssBaseline, ThemeProvider } from '@material-ui/
 import theme, { RTL } from './theme';
 import AppLayout from './layouts/appLayout';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import TrickListPage from './pages/trickListPage';
 import HomePage from './pages/homePage';
+import TrickPage from './pages/trickPage';
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
             <Switch>
               <Route exact path='/' component={HomePage} />
               <Route path='/trickList' component={TrickListPage} />
+              <Route path='/trick/:id' component={TrickPage} />
             </Switch>
           </Router>
         </AppLayout>
