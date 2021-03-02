@@ -24,6 +24,8 @@ const Filters = () => {
         } else {
             dispatch(TricksActions.trickList.filters.removeFilter(filterName))
         }
+        dispatch(TricksActions.trickList.pagging.setNextPageIndex(1))
+        dispatch(TricksActions.trickList.loading.isLoadingListAfterSearch(false))
     }
 
     return (

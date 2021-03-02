@@ -1,12 +1,13 @@
 {
     "infra": {
-        "search": "search"
+        "search": "Search",
+        "noResult": "Sorry there is no results"
     },
     "tricks": {
-        "notFilmed": "not filmed yet",
+        "notFilmed": "Not filmed yet",
         "levels": {
-            "difficulty" :"level of difficulty",
-            "levelOfRisk": "level of risk"
+            "difficulty": "Level of difficulty",
+            "levelOfRisk": "Level of risk"
         },
         "filters": {
             "drops": "Drops",
@@ -22,5 +23,10 @@
             "tishurecommended": "Tishu Recommended",
             "roperecommended": "Rope Recommended"
         }
+    },
+    "categories": {
+        "beginners": "Beginners",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced"
     }
 }

@@ -1,6 +1,7 @@
 {
     "infra": {
-        "search": "חיפוש"
+        "search": "חיפוש",
+        "noResult": "סליחה לא נמצאו תוצאות"
     },
     "tricks": {
         "notFilmed": "לא צולם",
@@ -22,5 +23,10 @@
             "tishurecommended": "מומלץ טיסו",
             "roperecommended": "מומלץ חבל"
         }
+    },
+    "categories": {
+        "beginners": "מתחילים",
+        "intermediate": "בינוניים",
+        "advanced": "מתקדמים"
     }
 }

@@ -2,26 +2,26 @@ import { Box, Divider, Icon, Link, Typography } from '@material-ui/core'
 import { TRICKS_COLUMN_NAMES } from '../db'
 import styles from '../css/trick.module.css'
 import Level from './level';
-import { useTranslation } from 'react-i18next';
-import { ReactComponent as Climbing } from '../assets/svg/climbing.svg';
+// import { useTranslation } from 'react-i18next';
+// import { ReactComponent as Climbing } from '../assets/svg/climbing.svg';
 
 
 const Trick = ({ trick, index }) => {
-    const { t } = useTranslation('common');
+    // const { t } = useTranslation('common');
     const handleClick = (event) => !trick[TRICKS_COLUMN_NAMES.filmed] ? event.preventDefault() : ''
-    const filterIconBulider = () => {
-        let icons = [];
-        Object.values(TRICKS_COLUMN_NAMES.filters).forEach(filter => {
-            if (trick[filter]) {
-                icons.push(
-                    <Icon color='primary'>
-                        <Climbing fill='currentColor' width={20} />
-                    </Icon>
-                )
-            }
-        })
-        return icons;
-    }
+    // const filterIconBulider = () => {
+    //     let icons = [];
+    //     Object.values(TRICKS_COLUMN_NAMES.filters).forEach(filter => {
+    //         if (trick[filter]) {
+    //             icons.push(
+    //                 <Icon color='primary'>
+    //                     <Climbing fill='currentColor' width={20} />
+    //                 </Icon>
+    //             )
+    //         }
+    //     })
+    //     return icons;
+    // }
     return (
         <Link key={`trick-${index}`}
             href={trick[TRICKS_COLUMN_NAMES.link]}
@@ -33,7 +33,6 @@ const Trick = ({ trick, index }) => {
             <Box component='section' className={styles.trickInfoSection}>
                 <Box className={styles.trickTitle}>
                     <Typography variant="h6" className={styles.trickName}>{trick[TRICKS_COLUMN_NAMES.name]}</Typography>
-                    {!trick[TRICKS_COLUMN_NAMES.filmed] ? <Typography key={`trick-notFilmed-${index}`} component="span" variant="subtitle1" color='textSecondary'>{t('tricks.notFilmed')}</Typography> : null}
                 </Box>
                 {trick[TRICKS_COLUMN_NAMES.difficulty] || trick[TRICKS_COLUMN_NAMES.levelOfRisk] ?
                     <Box className={styles.trickLevels}>
@@ -49,9 +48,9 @@ const Trick = ({ trick, index }) => {
             <Box component='section' className={styles.trickDescripationSection}>
                 <Typography>{trick[TRICKS_COLUMN_NAMES.notes]}</Typography>
             </Box>
-            <Box component='section' className={styles.trickFiltersSection}>
+            {/* <Box component='section' className={styles.trickFiltersSection}>
                 {filterIconBulider()}
-            </Box>
+            </Box> */}
         </Link>
     )
 }

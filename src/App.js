@@ -2,19 +2,19 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DBService, SHEETS_NAMES } from './db';
-import HomePage from './pages/homePage';
+import TrickListPage from './pages/trickListPage';
 import { InfraActions, TricksActions } from './redux/actions';
 import './App.css';
 import { REDUCERS_NAMES } from './redux/reducers';
 import { Box, CircularProgress, CssBaseline, ThemeProvider } from '@material-ui/core';
 import theme, { RTL } from './theme';
 import AppLayout from './layouts/appLayout';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import HomePage from './pages/homePage';
 
 function App() {
 
   const dispatch = useDispatch();
-
-  const { isFinishFetching } = useSelector(state => ({ isFinishFetching: state[REDUCERS_NAMES.infra].isFinishFetching }))
 
   useEffect(() => {
     const fetchGoogleSheetsData = async () => {
@@ -36,13 +36,12 @@ function App() {
       <RTL>
         <CssBaseline />
         <AppLayout>
-          {isFinishFetching ?
-            < HomePage /> :
-            (
-              <Box className='progressWrapper'>
-                <CircularProgress size={100} />
-              </Box>
-            )}
+          <Router>
+            <Switch>
+              <Route exact path='/' component={HomePage} />
+              <Route path='/trickList' component={TrickListPage} />
+            </Switch>
+          </Router>
         </AppLayout>
       </RTL>
     </ThemeProvider>
