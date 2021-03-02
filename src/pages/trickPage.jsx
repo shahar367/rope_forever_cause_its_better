@@ -1,6 +1,4 @@
-import { Box, useMediaQuery, useTheme } from "@material-ui/core";
-
-
+import { Box, CircularProgress, useMediaQuery, useTheme } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { TRICKS_COLUMN_NAMES } from "../db";
@@ -18,21 +16,31 @@ const TrickPage = () => {
 
     const mobile = useMediaQuery(`(max-width:${theme.breakpoints.values.sm}px)`);
 
-    const { trick } = useSelector(state => {
-        return { trick: state[REDUCERS_NAMES.tricks].list[id] }
+    let { isFinishFetching, trick } = useSelector(state => {
+        let isFinishFetching = state[REDUCERS_NAMES.infra].isFinishFetching
+        return {
+            isFinishFetching,
+            trick: isFinishFetching ? state[REDUCERS_NAMES.tricks].list[id] : {}
+        }
     })
 
     return (
-        <Box className={styles.trickVideoContainer}>
-            <iframe width={mobile ? size.width : size.width / 2} height="400"
-                src={trick[TRICKS_COLUMN_NAMES.link]}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                allowfullscreen
-                mozallowfullscreen
-                msallowfullscreen
-                oallowfullscreen
-                webkitallowfullscreen></iframe>
+        <Box className={styles.pageWrapper}>
+            {isFinishFetching ?
+                <Box className={styles.trickVideoContainer}>
+                    <iframe width={mobile ? size.width : size.width / 2} height="400"
+                        src={trick[TRICKS_COLUMN_NAMES.link]}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                        allowfullscreen
+                        mozallowfullscreen
+                        msallowfullscreen
+                        oallowfullscreen
+                        webkitallowfullscreen></iframe>
+                </Box>
+                : <Box className={styles.spinnerWrapper}>
+                    <CircularProgress size={100} />
+                </Box>}
         </Box>)
 }
 
