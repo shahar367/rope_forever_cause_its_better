@@ -1,5 +1,6 @@
 const INIT_TRICKS_LIST = "INIT_DB_ACTION_TYPE";
 const NEXT_PAGE = "NEXT_PAGE";
+const LOADING_LIST_AFTER_SEARCH = "LOADING_LIST_AFTER_SEARCH";
 const ADD_FILTER = "ADD_FILTER";
 const REMOVE_FILTER = "REMOVE_FILTER";
 const FREE_SEARCH_INPUT_CHANGE = "FREE_SEARCH_INPUT_CHANGE";
@@ -18,6 +19,13 @@ const TricksActions = ({
             setNextPageIndex: (index) => ({
                 type: NEXT_PAGE,
                 payload: index
+            })
+        },
+        loading: {
+            LOADING_LIST_AFTER_SEARCH: LOADING_LIST_AFTER_SEARCH,
+            isLoadingListAfterSearch: (isLoading) => ({
+                type: LOADING_LIST_AFTER_SEARCH,
+                payload: isLoading
             })
         },
         filters: {

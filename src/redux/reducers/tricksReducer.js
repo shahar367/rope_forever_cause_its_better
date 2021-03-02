@@ -1,12 +1,21 @@
 import { TricksActions } from "../actions";
 
-const tricks = (state = { trickListPageIndex: 1, numberOfTricksOnPage: 10, activeFilters: [], freeSearch: '' }, action) => {
+const initialState = {
+    trickListPageIndex: 1,
+    numberOfTricksOnPage: 10,
+    activeFilters: [],
+    freeSearch: '',
+    isLoadingAfterSearch: false,
+}
+
+const tricks = (state = initialState, action) => {
     switch (action.type) {
         case TricksActions.init.INIT_TRICKS_LIST: {
             const trickList = action.payload;
             return {
                 ...state,
                 list: trickList.elements,
+                maxNumberOfTricks: trickList.elements.length
             }
         }
         case TricksActions.trickList.pagging.NEXT_PAGE: {
@@ -14,6 +23,13 @@ const tricks = (state = { trickListPageIndex: 1, numberOfTricksOnPage: 10, activ
             return {
                 ...state,
                 trickListPageIndex: index,
+            }
+        }
+        case TricksActions.trickList.loading.LOADING_LIST_AFTER_SEARCH: {
+            const isLoading = action.payload;
+            return {
+                ...state,
+                isLoadingAfterSearch: isLoading
             }
         }
         case TricksActions.trickList.filters.ADD_FILTER: {

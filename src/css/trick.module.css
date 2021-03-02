@@ -15,7 +15,7 @@
     justify-content: space-between;
     padding-bottom: 4px;
     margin-left: 16px;
-    flex: 1 0 35%;
+    flex: 1 0 30%;
 }
 .trickTitle {
     display: flex;
@@ -43,6 +43,6 @@
 
 @media screen and (max-width: 600px) {
     .trickDescripationSection {
-        flex: 0 1 35%;
+        flex: 0 1 40%;
     }
 }
