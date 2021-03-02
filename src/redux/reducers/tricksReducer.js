@@ -12,6 +12,7 @@ const tricks = (state = initialState, action) => {
     switch (action.type) {
         case TricksActions.init.INIT_TRICKS_LIST: {
             const trickList = action.payload;
+            trickList.elements = trickList.elements.map((trick, index) => ({ ...trick, id: index }))
             return {
                 ...state,
                 list: trickList.elements,

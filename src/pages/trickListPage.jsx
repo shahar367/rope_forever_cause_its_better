@@ -63,7 +63,6 @@ const TrickListPage = () => {
                 return filteredItem;
             })
             maxNumberOfTricks = filteredList.length
-            console.log(maxNumberOfTricks);
         }
         return {
             isFinishFetching,
@@ -79,7 +78,7 @@ const TrickListPage = () => {
     })
 
     const handlePaggination = () => {
-        if (getScrollTop() < getDocumentHeight() - window.innerHeight) return;
+        if (getScrollTop() + 1 < getDocumentHeight() - window.innerHeight) return;
         else if (pageIndex * numberInPage > maxNumberOfTricks) return;
         dispatch(TricksActions.trickList.pagging.setNextPageIndex(++pageIndex))
     }
@@ -88,7 +87,7 @@ const TrickListPage = () => {
 
     useEffect(() => {
         console.log(state)
-    }, [])
+    }, [tricks])
 
     const handleToggleDrawer = () => {
         dispatch(InfraActions.homePage.toggleHomePageDrawer(!openDrawer))
@@ -137,11 +136,10 @@ const TrickListPage = () => {
                                     <CircularProgress size={100} />
                                 </Box>
                                 : maxNumberOfTricks > 0 ?
-                                 tricks.map((trick, index) => [
-                                    <Trick trick={trick} index={index} />,
-                                    <Divider key={`divider-${index}`} />
-                                ])
-                            : <Typography variant='h3' color='textSecondary' className={styles.noResult}>{t('infra.noResult')}</Typography>}
+                                    tricks.map(trick => [
+                                        <Trick trick={trick} />
+                                    ])
+                                    : <Typography variant='h3' color='textSecondary' className={styles.noResult}>{t('infra.noResult')}</Typography>}
                         </Box>
                     </Box>
                     {mobile ?
