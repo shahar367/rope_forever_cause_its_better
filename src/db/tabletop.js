@@ -8,6 +8,7 @@ const getGoogleSheetData = async () => {
     try {
         const data = await tableTop.init({
             key: publicGoogleSheets,
+            singleton: true,
             parseNumbers: true,
             postProcess: (element) => {
                 console.log()

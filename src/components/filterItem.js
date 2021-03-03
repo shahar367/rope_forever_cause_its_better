@@ -33,7 +33,7 @@ const FilterItem = ({ filterObject, handleToggle }) => {
                 primary={t(`tricks.filters.${(filterObject.name).toLowerCase().split(" ").join("")}`)} />
             <ListItemSecondaryAction onClick={
                 () => {
-                    dispatch(TricksActions.trickList.loading.isLoadingListAfterSearch(true))
+                    dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(true))
                     debouncedToggle.callback(filterObject.name)
                 }
             }>
