@@ -31,12 +31,7 @@ const TrickPage = () => {
                     <iframe width={mobile ? size.width : size.width / 2} height="400"
                         src={trick[TRICKS_COLUMN_NAMES.link]}
                         frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                        allowfullscreen
-                        mozallowfullscreen
-                        msallowfullscreen
-                        oallowfullscreen
-                        webkitallowfullscreen></iframe>
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" />
                 </Box>
                 : <Box className={styles.spinnerWrapper}>
                     <CircularProgress size={100} />
