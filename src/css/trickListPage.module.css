@@ -41,7 +41,8 @@
     padding-top: 16px;
     padding-bottom: 8px;
     width: calc(100% - 215px);
-    background-color: #fafafa;
+    background-color: #fefefe;
+    z-index: 99;
 }
 .searchInput {
     width: 100%;
@@ -52,8 +53,8 @@
 }
 
 .trickListContainer {
-    margin-top: 80px;
-    height: calc(100% - 80px);
+    margin-top: 70px;
+    height: calc(100% - 70px);
 }
 
 .loadingSpinnerWrapper {
@@ -75,6 +76,8 @@
 .sidebarDivider {
     position: fixed;
     left: 216px;
+    z-index: 99;
+    top: -1px;
 }
 .sidebar {
     position: fixed;

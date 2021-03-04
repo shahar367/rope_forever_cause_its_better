@@ -65,7 +65,6 @@ const TrickListPage = () => {
                 return filteredItem;
             })
             maxNumberOfTricks = filteredList.length
-            console.log(maxNumberOfTricks);
         }
         return {
             isFinishFetching,
