@@ -132,7 +132,7 @@ const TrickListPage = () => {
                             <Box className={styles.loadingSpinnerWrapperScroll}>
                                 <CircularProgress size={50} />
                             </Box>
-                        }                
+                        }
                         scrollableTarget='body'>
                         {tricks.map(trick => [
                             <Trick key={`trick-html-${trick.id}`} trick={trick} />
