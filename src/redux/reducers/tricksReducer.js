@@ -6,12 +6,14 @@ const initialState = {
     activeFilters: [],
     freeSearch: '',
     isLoadingAfterSearch: false,
+    isLoadingNextPage: false,
 }
 
 const tricks = (state = initialState, action) => {
     switch (action.type) {
         case TricksActions.init.INIT_TRICKS_LIST: {
             const trickList = action.payload;
+            trickList.elements = trickList.elements.map((trick, index) => ({ ...trick, id: index }))
             return {
                 ...state,
                 list: trickList.elements,
@@ -23,6 +25,13 @@ const tricks = (state = initialState, action) => {
             return {
                 ...state,
                 trickListPageIndex: index,
+            }
+        }
+        case TricksActions.trickList.pagging.LOADING_NEXT_PAGE: {
+            const isLoadingNextPage = action.payload;
+            return {
+                ...state,
+                isLoadingNextPage: isLoadingNextPage
             }
         }
         case TricksActions.trickList.loading.LOADING_LIST_AFTER_SEARCH: {

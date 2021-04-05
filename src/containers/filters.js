@@ -25,7 +25,7 @@ const Filters = () => {
             dispatch(TricksActions.trickList.filters.removeFilter(filterName))
         }
         dispatch(TricksActions.trickList.pagging.setNextPageIndex(1))
-        dispatch(TricksActions.trickList.loading.isLoadingListAfterSearch(false))
+        dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(false))
     }
 
     return (

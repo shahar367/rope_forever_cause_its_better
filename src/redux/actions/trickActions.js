@@ -4,6 +4,7 @@ const LOADING_LIST_AFTER_SEARCH = "LOADING_LIST_AFTER_SEARCH";
 const ADD_FILTER = "ADD_FILTER";
 const REMOVE_FILTER = "REMOVE_FILTER";
 const FREE_SEARCH_INPUT_CHANGE = "FREE_SEARCH_INPUT_CHANGE";
+const LOADING_NEXT_PAGE = "LOADING_NEXT_PAGE";
 
 const TricksActions = ({
     init: {
@@ -19,11 +20,17 @@ const TricksActions = ({
             setNextPageIndex: (index) => ({
                 type: NEXT_PAGE,
                 payload: index
+            }),
+            LOADING_NEXT_PAGE: LOADING_NEXT_PAGE,
+            setIsLoadingNextPage: (isLoadingNextPage) => ({
+                type: LOADING_NEXT_PAGE,
+                payload: isLoadingNextPage
             })
+            
         },
         loading: {
             LOADING_LIST_AFTER_SEARCH: LOADING_LIST_AFTER_SEARCH,
-            isLoadingListAfterSearch: (isLoading) => ({
+            setIsLoadingListAfterSearch: (isLoading) => ({
                 type: LOADING_LIST_AFTER_SEARCH,
                 payload: isLoading
             })
