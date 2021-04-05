@@ -7,13 +7,14 @@ import './App.css';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import theme, { RTL } from './theme';
 import AppLayout from './layouts/appLayout';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import TrickListPage from './pages/trickListPage';
 import HomePage from './pages/homePage';
 import TrickPage from './pages/trickPage';
-import Store from './redux/store';
 
 function App() {
+
+  const alphaVersion = true;
 
   const dispatch = useDispatch();
 
@@ -45,7 +46,9 @@ function App() {
         <AppLayout>
           <Router>
             <Switch>
-              <Route exact path='/' component={HomePage} />
+              <Route exact path='/' component={HomePage}>
+                {alphaVersion ? <Redirect to="/trickList" /> : null}
+              </Route>
               <Route path='/trickList' component={TrickListPage} />
               <Route path='/trick/:id' component={TrickPage} />
             </Switch>
