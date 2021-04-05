@@ -1,4 +1,4 @@
-import { Box, Card, CardActionArea, Divider, Icon, Link, Typography } from '@material-ui/core'
+import { Box, Card, CardActionArea, Typography } from '@material-ui/core'
 import { TRICKS_COLUMN_NAMES } from '../db'
 import styles from '../css/trick.module.css'
 import Level from './level';

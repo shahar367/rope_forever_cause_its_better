@@ -1,6 +1,4 @@
-import { Card, CardActionArea, CardActions, CardContent, CardMedia, IconButton, Typography } from "@material-ui/core"
-import { red } from "@material-ui/core/colors";
-import { YouTube } from "@material-ui/icons";
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@material-ui/core"
 import { useTranslation } from "react-i18next"
 import styles from '../css/category.module.css';
 

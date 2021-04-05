@@ -1,7 +1,7 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { REDUCERS_NAMES } from "../redux/reducers";
-import { Box, CircularProgress, Divider, Drawer, IconButton, LinearProgress, TextField, Typography, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, CircularProgress, Divider, Drawer, IconButton, TextField, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import { MenuRounded } from "@material-ui/icons";
 import { useEventListener } from "../hooks/useEventListener";
 import { InfraActions, TricksActions } from "../redux/actions";
@@ -41,7 +41,7 @@ const TrickListPage = () => {
 
     const mobile = useMediaQuery(`(max-width:${theme.breakpoints.values.sm}px)`);
 
-    let { isFinishFetching, tricks, pageIndex, numberInPage, maxNumberOfTricks, isLoadingNextPage, isLoadingAfterSearch, openDrawer, activeFilters, state } = useSelector((state) => {
+    let { isFinishFetching, tricks, pageIndex, numberInPage, maxNumberOfTricks, isLoadingAfterSearch, openDrawer } = useSelector((state) => {
         let filteredList = [];
         let isFinishFetching = state[REDUCERS_NAMES.infra].isFinishFetching
         let pageIndex = state[REDUCERS_NAMES.tricks].trickListPageIndex
@@ -147,7 +147,7 @@ const TrickListPage = () => {
         }
     }
 
-    const view = useCallback(() => trickListView(), [tricks, isLoadingAfterSearch, maxNumberOfTricks, isLoadingNextPage])
+    const view = useCallback(() => trickListView(), [])
 
     return (
         <Box className={styles.pageWrapper}>

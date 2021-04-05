@@ -1,4 +1,4 @@
-import { Checkbox, Icon, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText } from "@material-ui/core"
+import { Checkbox, ListItem, ListItemSecondaryAction, ListItemText } from "@material-ui/core"
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useDebouncedCallback } from "use-debounce/lib";
