@@ -147,7 +147,7 @@ const TrickListPage = () => {
         }
     }
 
-    const view = useCallback(() => trickListView(), [])
+    const view = useCallback(() => trickListView(), [tricks, maxNumberOfTricks, isLoadingAfterSearch])
 
     return (
         <Box className={styles.pageWrapper}>

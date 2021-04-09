@@ -44,7 +44,7 @@ function App() {
       <RTL>
         <CssBaseline />
         <AppLayout>
-          <Router>
+          <Router basename="/">
             <Switch>
               <Route exact path='/' component={HomePage}>
                 {alphaVersion ? <Redirect to="/trickList" /> : null}
