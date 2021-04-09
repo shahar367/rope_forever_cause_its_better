@@ -6,7 +6,6 @@ const publicGoogleSheets = process.env.REACT_APP_PUBLIC_GOOGLE_SHEETS;
 
 const getGoogleSheetData = async () => {
     try {
-        console.log(publicGoogleSheets);
         const data = await tableTop.init({
             key: publicGoogleSheets,
             singleton: true,
@@ -19,7 +18,6 @@ const getGoogleSheetData = async () => {
                 if (TRICKS_COLUMN_NAMES.link in element) element[TRICKS_COLUMN_NAMES.link] = MakeEmbeded(element[TRICKS_COLUMN_NAMES.link])
             }
         })
-        console.log(data);
         return data;
     }
     catch (err) {
