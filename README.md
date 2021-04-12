@@ -4,10 +4,8 @@ An aerial acrobatics tricks collaction
 ## env
 all change in env file need to go through me
 ```
-NODE_ENV = 'development'
 PORT = '8080'
 REACT_APP_PUBLIC_GOOGLE_SHEETS = '' //googleSheet link in DB section
-REACT_APP_CODE_SAND_BOX = "https://codesandbox.io/s/github/shahar367/rope_forever_cause_its_better"
 ```
 
 ## DB
