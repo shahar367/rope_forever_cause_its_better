@@ -4,7 +4,7 @@ An aerial acrobatics tricks collaction
 ## env
 all change in env file need to go through me
 ```
-PORT = '8080'
+PORT = '8080' //in development
 REACT_APP_PUBLIC_GOOGLE_SHEETS = '' //googleSheet link in DB section
 ```
 

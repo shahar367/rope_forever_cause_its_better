@@ -1,6 +1,7 @@
 .pageWrapper {
     height: 100%;
     width: 100%;
+    display: flex;
 }
 
 .spinnerWrapper {
@@ -11,8 +12,68 @@
     height: 100%;
 }
 
+.trickInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    flex: 1 0 40%;
+    margin-left: 20px;
+}
+
+.trickLevels {
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.fillerTagContainer {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.fillerTagContainer > div {
+    min-width: 85px;
+    margin-top: 4px;
+    margin-left: 4px;
+}
+
 .trickVideoContainer {
     display: flex;
     justify-content: center;
     width: 100%;
+    padding-bottom: 15px;
 }   
+
+.trickVideo {
+    border: 1px solid rgba(0,0,0,0.7);
+    border-radius: 16px;
+    box-shadow: 0px 0px 12px 4px rgba(0,0,0,0.32);
+}
+
+@media screen and (max-width: 600px) {
+    .pageWrapper {
+        flex-direction: column;
+    }
+
+    .trickInfoContainer {
+        flex: 0 1 auto;
+        margin-left: 0;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .trickLevels {
+        flex: 1 0 50%;
+        align-items: flex-end;
+    }
+
+    .trickVideoContainer {
+        flex: 1 0 auto;
+        padding-bottom: 0;
+    }
+}
