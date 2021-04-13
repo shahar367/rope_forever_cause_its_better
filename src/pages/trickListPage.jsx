@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { REDUCERS_NAMES } from "../redux/reducers";
 import { Box, CircularProgress, Divider, Drawer, IconButton, TextField, Typography, useMediaQuery, useTheme } from "@material-ui/core";
@@ -149,6 +149,13 @@ const TrickListPage = () => {
 
     const view = useCallback(() => trickListView(), [tricks, maxNumberOfTricks, isLoadingAfterSearch])
 
+    useEffect(() => {
+        return () => {
+            debugger
+            dispatch(TricksActions.trickList.pagging.setNextPageIndex(1))
+        }
+    }, [])
+
     return (
         <Box className={styles.pageWrapper}>
             {isFinishFetching ? (
@@ -186,8 +193,8 @@ const TrickListPage = () => {
                             <Filters />
                         </Drawer>) :
                         [
-                            <Divider className={styles.sidebarDivider} orientation="vertical" />,
-                            <Box className={styles.sidebar}>
+                            <Divider key={'trick-page-divider'} className={styles.sidebarDivider} orientation="vertical" />,
+                            <Box key={'sidebar'} className={styles.sidebar}>
                                 <Filters />
                             </Box>
                         ]
