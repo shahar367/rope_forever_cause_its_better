@@ -31,7 +31,7 @@ const Filters = () => {
     return (
         <List>
             { filtersList.map((filter) =>
-                <FilterItem filterObject={filter} handleToggle={handleToggle} />
+                <FilterItem key={`sidebar-${filter.name}`} filterObject={filter} handleToggle={handleToggle} />
             )}
         </List>
     )

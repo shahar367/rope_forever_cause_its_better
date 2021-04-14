@@ -1,35 +1,32 @@
-import { Box, Card, CardActionArea, Typography } from '@material-ui/core'
+import { Box, Card, CardActionArea, Chip, Typography } from '@material-ui/core'
 import { TRICKS_COLUMN_NAMES } from '../db'
 import styles from '../css/trick.module.css'
 import Level from './level';
 import { useHistory } from 'react-router-dom';
-// import { useTranslation } from 'react-i18next';
-// import { ReactComponent as Climbing } from '../assets/svg/climbing.svg';
+import { useTranslation } from 'react-i18next';
 
 
 const Trick = ({ trick }) => {
 
     const history = useHistory();
-    // const { t } = useTranslation('common');
+
+    const { t } = useTranslation('common');
+
     const handleClick = (event) => {
         if (!trick[TRICKS_COLUMN_NAMES.filmed]) {
             return;
         }
         history.push(`/trick/${trick.id}`)
     }
-    // const filterIconBulider = () => {
-    //     let icons = [];
-    //     Object.values(TRICKS_COLUMN_NAMES.filters).forEach(filter => {
-    //         if (trick[filter]) {
-    //             icons.push(
-    //                 <Icon color='primary'>
-    //                     <Climbing fill='currentColor' width={20} />
-    //                 </Icon>
-    //             )
-    //         }
-    //     })
-    //     return icons;
-    // }
+
+    const setFilters = () => {
+        return (<Box component='section' className={styles.trickFiltersSection}>
+            {Object.values(TRICKS_COLUMN_NAMES.filters).filter((tag => {
+                return trick[tag]
+            })).map(tag => (<Chip key={`${trick[TRICKS_COLUMN_NAMES.name]}-${t(`tricks.filters.${(tag).toLowerCase().split(" ").join("")}`)}-trick-tag`} label={`# ${t(`tricks.filters.${(tag).toLowerCase().split(" ").join("")}`)}`} color='primary' clickable />))}
+        </Box>)
+    }
+
     return (
         <Card key={`trick-${trick.id}`} className={styles.trick} onClick={handleClick} variant='outlined'>
             <CardActionArea>
@@ -48,14 +45,12 @@ const Trick = ({ trick }) => {
                         </Box> : null
                     }
                 </Box>
-                <Box component='section' className={styles.trickDescripationSection}>
+                {/* <Box component='section' className={styles.trickDescripationSection}>
                     <Typography>{trick[TRICKS_COLUMN_NAMES.notes]}</Typography>
-                </Box>
-                {/* <Box component='section' className={styles.trickFiltersSection}>
-                {filterIconBulider()}
-            </Box> */}
+                </Box> */}
+                {setFilters()}
             </CardActionArea>
-        </Card>
+        </Card >
     )
 }
 

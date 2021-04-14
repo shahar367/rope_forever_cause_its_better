@@ -53,8 +53,11 @@
 }
 
 .trickListContainer {
+    display: flex;
+    flex-direction: row;
     margin-top: 70px;
-    height: calc(100% - 70px);
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .loadingSpinnerWrapper {
@@ -84,6 +87,16 @@
     left: 0;
     display: flex;
     flex: 0 0 20%;
+}
+
+@media screen and (max-width: 785px) {
+    .trickListContainer {
+        display: flex;
+        flex-direction: column;
+        margin-top: 70px;
+        flex-wrap: unset;
+        justify-self: unset;
+    }
 }
 
 @media screen and (max-width: 600px) {
