@@ -89,7 +89,7 @@
     flex: 0 0 20%;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 785px) {
     .trickListContainer {
         display: flex;
         flex-direction: column;
