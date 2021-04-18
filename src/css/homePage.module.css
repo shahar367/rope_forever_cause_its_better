@@ -1,6 +1,7 @@
 .catergoriesContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 15%;
-    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: inherit;
+    height: 100%;
 }

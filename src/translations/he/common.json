@@ -25,6 +25,7 @@
         }
     },
     "categories": {
+        "allVideos": "כל התרגילים",
         "beginners": "מתחילים",
         "intermediate": "בינוניים",
         "advanced": "מתקדמים"

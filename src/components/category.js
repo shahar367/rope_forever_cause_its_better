@@ -7,17 +7,17 @@ const Category = ({ CategoryObject }) => {
     const { t } = useTranslation("common");
 
     return (
-        <Card className={styles.categoryCard}>
+        <Card className={styles.categoryCard} elevation={3}>
             <CardActionArea>
-                <CardMedia
+                {/* <CardMedia
                     component="img"
                     alt={t(`categories.${CategoryObject.name}`)}
                     height="200"
                     image={CategoryObject.img}
                     title={t(`categories.${CategoryObject.name}`)}
-                />
-                <CardContent>
-                    <Typography variant="h5" component="h2" align='center'>{t(`categories.${CategoryObject.name}`)}</Typography>
+                /> */}
+                <CardContent className={styles.categoryCardContantContainer}>
+                    <Typography variant="h5" component="h2" align='center' className={styles.categoryCardContant}>{t(`categories.${CategoryObject.name}`)}</Typography>
                 </CardContent>
             </CardActionArea>
             {/* <CardActions>

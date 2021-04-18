@@ -14,8 +14,6 @@ import TrickPage from './pages/trickPage';
 
 function App() {
 
-  const alphaVersion = true;
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,7 +45,7 @@ function App() {
           <Router basename="/">
             <Switch>
               <Route exact path='/' component={HomePage}>
-                {alphaVersion ? <Redirect to="/trickList" /> : null}
+                {process.env.NODE_ENV === 'production' ? <Redirect to="/trickList" /> : null}
               </Route>
               <Route path='/trickList' component={TrickListPage} />
               <Route path='/trick/:id' component={TrickPage} />

@@ -25,6 +25,7 @@
         }
     },
     "categories": {
+        "allVideos": "All Videos",
         "beginners": "Beginners",
         "intermediate": "Intermediate",
         "advanced": "Advanced"

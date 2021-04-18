@@ -6,9 +6,10 @@ import advanced from '../assets/png/advanced.png';
 import styles from '../css/homePage.module.css';
 
 const categories = [
-    { name: "beginners", img: beginners },
-    { name: "intermediate", img: intermediate },
-    { name: 'advanced', img: advanced }
+    { name: "allVideos", img: ''},
+    { name: "beginners", img: '' },
+    { name: "intermediate", img: '' },
+    { name: 'advanced', img: '' }
 ]
 
 const HomePage = () => {
