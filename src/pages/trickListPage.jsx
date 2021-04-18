@@ -11,7 +11,7 @@ import styles from '../css/trickListPage.module.css';
 import { useTranslation } from "react-i18next";
 import { TRICKS_COLUMN_NAMES } from "../db";
 import { useDebouncedCallback } from "use-debounce/lib";
-import InfiniteScroll from "react-infinite-scroll-component";
+import SliderItem, { defaultSilderItem } from "../components/sliderItem";
 
 //#region helpMethod
 const getScrollTop = () => {
@@ -31,6 +31,25 @@ const getDocumentHeight = () => {
 };
 //#endregion
 
+//#region helpObjects
+
+const sliderMarks = [
+    {
+        value: 1,
+        label: '1',
+    },
+    {
+        value: 5,
+        label: '5',
+    },
+    {
+        value: 10,
+        label: '10',
+    },
+]
+
+//#endregion
+
 const TrickListPage = () => {
 
     const { t } = useTranslation('common');
@@ -41,7 +60,7 @@ const TrickListPage = () => {
 
     const mobile = useMediaQuery(`(max-width:${theme.breakpoints.values.sm}px)`);
 
-    let { isFinishFetching, tricks, pageIndex, numberInPage, maxNumberOfTricks, isLoadingAfterSearch, openDrawer } = useSelector((state) => {
+    let { isFinishFetching, tricks, pageIndex, numberInPage, maxNumberOfTricks, ranges, isLoadingAfterSearch, openDrawer } = useSelector((state) => {
         let filteredList = [];
         let isFinishFetching = state[REDUCERS_NAMES.infra].isFinishFetching
         let pageIndex = state[REDUCERS_NAMES.tricks].trickListPageIndex
@@ -49,6 +68,7 @@ const TrickListPage = () => {
         let isLoadingNextPage = state[REDUCERS_NAMES.tricks].isLoadingNextPage
         let isLoadingAfterSearch = state[REDUCERS_NAMES.tricks].isLoadingAfterSearch
         let activeFilters = state[REDUCERS_NAMES.tricks].activeFilters
+        let ranges = state[REDUCERS_NAMES.tricks].ranges
         let freeSearch = state[REDUCERS_NAMES.tricks].freeSearch
         let maxNumberOfTricks = state[REDUCERS_NAMES.tricks].maxNumberOfTricks
         if (isFinishFetching) {
@@ -58,6 +78,13 @@ const TrickListPage = () => {
                     activeFilters.forEach(filter => {
                         filteredItem = filteredItem && item[filter]
                     })
+                }
+                if (ranges) {
+                    filteredItem = filteredItem
+                        && ranges[TRICKS_COLUMN_NAMES.difficulty][0] <= item[TRICKS_COLUMN_NAMES.difficulty]
+                        && item[TRICKS_COLUMN_NAMES.difficulty] <= ranges[TRICKS_COLUMN_NAMES.difficulty][1]
+                        && ranges[TRICKS_COLUMN_NAMES.levelOfRisk][0] <= item[TRICKS_COLUMN_NAMES.levelOfRisk]
+                        && item[TRICKS_COLUMN_NAMES.levelOfRisk] <= ranges[TRICKS_COLUMN_NAMES.levelOfRisk][1]
                 }
                 if (freeSearch) {
                     filteredItem = filteredItem && item[TRICKS_COLUMN_NAMES.name].includes(freeSearch)
@@ -76,25 +103,18 @@ const TrickListPage = () => {
             maxNumberOfTricks,
             openDrawer: state[REDUCERS_NAMES.infra].homePageInfra.openDrawer,
             activeFilters,
+            ranges,
             state: state
         }
     })
 
     const handlePaggination = () => {
-        if (mobile) {
-            dispatch(TricksActions.trickList.pagging.setNextPageIndex(++pageIndex));
-            return;
-        }
-        else if (getScrollTop() + 1 < getDocumentHeight() - window.innerHeight) return;
+        if (getScrollTop() + 1 < getDocumentHeight() - window.innerHeight) return;
         else if (pageIndex * numberInPage > maxNumberOfTricks) return;
         dispatch(TricksActions.trickList.pagging.setNextPageIndex(++pageIndex));
     }
 
     useEventListener("scroll", handlePaggination, window);
-
-    // useEffect(() => {
-    //     // console.log(state)
-    // }, [])
 
     const handleToggleDrawer = () => {
         dispatch(InfraActions.homePage.toggleHomePageDrawer(!openDrawer))
@@ -109,6 +129,14 @@ const TrickListPage = () => {
 
     const debouncedSearch = useDebouncedCallback(handleSearch, 200);
 
+    const handleDifficultyRangeChange = (value) => {
+        dispatch(TricksActions.trickList.filters.changeDifficultyRange(value))
+    }
+
+    const handleLevelOfRiskRangeChange = (value) => {
+        dispatch(TricksActions.trickList.filters.changeLevelOfRiskRange(value))
+    }
+
     const trickListView = () => {
         if (isLoadingAfterSearch) {
             return (<Box className={styles.loadingSpinnerWrapper}>
@@ -122,28 +150,9 @@ const TrickListPage = () => {
                 {t('infra.noResult')}
             </Typography>)
         } else {
-            if (mobile) {
-                return (
-                    <InfiniteScroll
-                        dataLength={maxNumberOfTricks}
-                        next={handlePaggination}
-                        hasMore={!(pageIndex * numberInPage > maxNumberOfTricks)}
-                        loader={
-                            <Box className={styles.loadingSpinnerWrapperScroll}>
-                                <CircularProgress size={50} />
-                            </Box>
-                        }
-                        scrollableTarget='body'>
-                        {tricks.map(trick => [
-                            <Trick key={`trick-html-${trick.id}`} trick={trick} />
-                        ])}
-                    </InfiniteScroll>
-                )
-            } else {
                 return (tricks.map(trick => [
                     <Trick key={`trick-html-${trick.id}`} trick={trick} />
                 ]))
-            }
         }
     }
 
@@ -151,7 +160,6 @@ const TrickListPage = () => {
 
     useEffect(() => {
         return () => {
-            debugger
             dispatch(TricksActions.trickList.pagging.setNextPageIndex(1))
         }
     }, [])
@@ -161,30 +169,62 @@ const TrickListPage = () => {
             {isFinishFetching ? (
                 <Box className={styles.layout}>
                     <Box className={styles.main}>
-                        <Box className={styles.searchInputContainer}>
-                            {mobile ? <IconButton className={styles.openDrawerButton} onClick={handleToggleDrawer}>
-                                <MenuRounded />
-                            </IconButton> : null}
-                            <TextField
-                                className={styles.searchInput}
-                                label={t("infra.search")}
-                                variant="outlined"
-                                onInput={
-                                    (event) => {
-                                        dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(true))
-                                        debouncedSearch.callback(event)
+                        <Box className={styles.addedFiltersSearchInputContainer}>
+                            <Box className={styles.searchInputContainer}>
+                                {mobile ? <IconButton className={styles.openDrawerButton} onClick={handleToggleDrawer}>
+                                    <MenuRounded />
+                                </IconButton> : null}
+                                <TextField
+                                    className={styles.searchInput}
+                                    label={t("infra.search")}
+                                    variant="outlined"
+                                    onInput={
+                                        (event) => {
+                                            dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(true))
+                                            debouncedSearch.callback(event)
+                                        }
                                     }
-                                }
-                                InputProps={{ type: 'search' }}
-                            />
+                                    InputProps={{ type: 'search' }}
+                                />
+                                {mobile ? <Box className={styles.showNumberOfTricks}>
+                                    <Typography>{t('infra.numberOfTricks')}</Typography>
+                                    <Typography>{tricks.length}</Typography>
+                                </Box> : null}
+                            </Box>
+                            <Box className={styles.sildersContainer}>
+                                <SliderItem label={'tricks.levels.difficulty'} containerStyles={styles.levelsliderStyle}
+                                    handleSliderValueChange={handleDifficultyRangeChange}
+                                    sliderOption={{
+                                        ...defaultSilderItem,
+                                        marks: sliderMarks,
+                                        rangeMode: true,
+                                        rangeValue: ranges[TRICKS_COLUMN_NAMES.difficulty],
+                                        beforeChangeFunc: () => dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(true)),
+                                        afterChangeFunc: () => {
+                                            dispatch(TricksActions.trickList.pagging.setNextPageIndex(1))
+                                            dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(false))
+                                        }
+                                    }} />
+                                <SliderItem label={'tricks.levels.levelOfRisk'} containerStyles={styles.levelsliderStyle}
+                                    handleSliderValueChange={handleLevelOfRiskRangeChange}
+                                    sliderOption={{
+                                        ...defaultSilderItem,
+                                        marks: sliderMarks,
+                                        rangeMode: true,
+                                        rangeValue: ranges[TRICKS_COLUMN_NAMES.levelOfRisk],
+                                        beforeChangeFunc: () => dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(true)),
+                                        afterChangeFunc: () => {
+                                            dispatch(TricksActions.trickList.pagging.setNextPageIndex(1))
+                                            dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(false))
+                                        }
+                                    }} />
+                                {mobile ? null : <Box className={styles.showNumberOfTricks}>
+                                    <Typography>{t('infra.numberOfTricks')}</Typography>
+                                    <Typography>{maxNumberOfTricks}</Typography>
+                                </Box>}
+                            </Box>
                         </Box>
-                        {/* {mobile ? activeFilters.map((filter, index) => (<Typography
-                            className={styles.activeFilter}
-                            key={`activefilter-${index}-${filter}`}
-                            variant='subtitle1'>
-                            #{t(`tricks.filters.${filter.toLowerCase().split(" ").join("")}`)}
-                        </Typography>)) : null} */}
-                        <Box className={styles.trickListContainer}>
+                        <Box className={`${styles.trickListContainer} ${maxNumberOfTricks <= 0 || isLoadingAfterSearch ? styles.centerText : ''}`}>
                             {view()}
                         </Box>
                     </Box>

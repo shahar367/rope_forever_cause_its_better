@@ -1,7 +1,8 @@
 {
     "infra": {
         "search": "Search",
-        "noResult": "Sorry there is no results"
+        "noResult": "Sorry there is no results",
+        "numberOfTricks": "number of tricks"
     },
     "tricks": {
         "notFilmed": "Not filmed yet",
