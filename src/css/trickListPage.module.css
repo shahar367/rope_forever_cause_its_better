@@ -1,6 +1,7 @@
 .pageWrapper {
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 .layout {
@@ -8,6 +9,7 @@
     justify-content: space-between;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     /* padding-top: 56px; */
 }
 
@@ -23,8 +25,23 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    margin-top: 157px;
+    height: calc(100% - 213px);
     flex: 0 0 calc(100% - 215px);
     padding: 0 20px;
+    overflow: hidden;
+    overflow-y: auto;
+    overflow-y: overlay;
+}
+
+.main::-webkit-scrollbar {
+    width: 4px;
+    background-color: transparent;
+}
+
+.main::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 2px;
 }
 
 .openDrawerButton {
@@ -35,7 +52,7 @@
 .addedFiltersSearchInputContainer {
     position: fixed;
     min-height: 56px;
-    top: 0;
+    top: 64px;
     right: 0px;
     padding: 0 40px;
     padding-top: 16px;
@@ -79,7 +96,6 @@
 .trickListContainer {
     display: flex;
     flex-direction: row;
-    margin-top: 147px;
     flex-wrap: wrap;
     justify-content: space-between;
 }
@@ -123,7 +139,6 @@
     .trickListContainer {
         display: flex;
         flex-direction: column;
-        margin-top: 161px;
         flex-wrap: unset;
         justify-self: unset;
     }

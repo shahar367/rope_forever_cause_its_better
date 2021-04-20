@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { REDUCERS_NAMES } from "../redux/reducers";
 import { Box, CircularProgress, Divider, Drawer, IconButton, TextField, Typography, useMediaQuery, useTheme } from "@material-ui/core";
-import { MenuRounded } from "@material-ui/icons";
+import { Duo, MenuRounded } from "@material-ui/icons";
 import { useEventListener } from "../hooks/useEventListener";
 import { InfraActions, TricksActions } from "../redux/actions";
 import Filters from "../containers/filters";
@@ -15,18 +15,15 @@ import SliderItem, { defaultSilderItem } from "../components/sliderItem";
 
 //#region helpMethod
 const getScrollTop = () => {
-    return (window.pageYOffset !== undefined)
-        ? window.pageYOffset
-        : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+    return (document.getElementById('trickListMain').scrollTop !== undefined)
+        ? document.getElementById('trickListMain').scrollTop
+        : document.getElementById('trickListMain').parentNode.scrollTop;
 }
 
 const getDocumentHeight = () => {
-    const body = document.body;
-    const html = document.documentElement;
-
+    const trickListMain = document.getElementById('trickListMain');
     return Math.max(
-        body.scrollHeight, body.offsetHeight,
-        html.clientHeight, html.scrollHeight, html.offsetHeight
+        trickListMain.scrollHeight, trickListMain.offsetHeight
     );
 };
 //#endregion
@@ -59,6 +56,8 @@ const TrickListPage = () => {
     const dispatch = useDispatch();
 
     const mobile = useMediaQuery(`(max-width:${theme.breakpoints.values.sm}px)`);
+
+    let trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : window;
 
     let { isFinishFetching, tricks, pageIndex, numberInPage, maxNumberOfTricks, ranges, isLoadingAfterSearch, openDrawer } = useSelector((state) => {
         let filteredList = [];
@@ -109,12 +108,12 @@ const TrickListPage = () => {
     })
 
     const handlePaggination = () => {
-        if (getScrollTop() + 1 < getDocumentHeight() - window.innerHeight) return;
+        if (getScrollTop() + 1 < getDocumentHeight() - trickListMainElement.offsetHeight) return;
         else if (pageIndex * numberInPage > maxNumberOfTricks) return;
         dispatch(TricksActions.trickList.pagging.setNextPageIndex(++pageIndex));
     }
 
-    useEventListener("scroll", handlePaggination, window);
+    useCallback(useEventListener("scroll", handlePaggination, document.getElementById('trickListMain')), [trickListMainElement]);
 
     const handleToggleDrawer = () => {
         dispatch(InfraActions.homePage.toggleHomePageDrawer(!openDrawer))
@@ -150,25 +149,26 @@ const TrickListPage = () => {
                 {t('infra.noResult')}
             </Typography>)
         } else {
-                return (tricks.map(trick => [
-                    <Trick key={`trick-html-${trick.id}`} trick={trick} />
-                ]))
+            return (tricks.map(trick => [
+                <Trick key={`trick-html-${trick.id}`} trick={trick} />
+            ]))
         }
     }
 
     const view = useCallback(() => trickListView(), [tricks, maxNumberOfTricks, isLoadingAfterSearch])
 
     useEffect(() => {
+        trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : window;
         return () => {
             dispatch(TricksActions.trickList.pagging.setNextPageIndex(1))
         }
-    }, [])
+    }, [isFinishFetching])
 
     return (
         <Box className={styles.pageWrapper}>
             {isFinishFetching ? (
                 <Box className={styles.layout}>
-                    <Box className={styles.main}>
+                    <Box id={'trickListMain'} className={styles.main}>
                         <Box className={styles.addedFiltersSearchInputContainer}>
                             <Box className={styles.searchInputContainer}>
                                 {mobile ? <IconButton className={styles.openDrawerButton} onClick={handleToggleDrawer}>
