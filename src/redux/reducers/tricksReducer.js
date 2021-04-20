@@ -1,4 +1,5 @@
 import { TricksActions } from "../actions";
+import { TRICKS_COLUMN_NAMES } from "../../db";
 
 const initialState = {
     trickListPageIndex: 1,
@@ -17,7 +18,11 @@ const tricks = (state = initialState, action) => {
             return {
                 ...state,
                 list: trickList.elements,
-                maxNumberOfTricks: trickList.elements.length
+                maxNumberOfTricks: trickList.elements.length,
+                ranges: {
+                    [TRICKS_COLUMN_NAMES.difficulty]: [1, 10],
+                    [TRICKS_COLUMN_NAMES.levelOfRisk]: [1, 10]
+                }
             }
         }
         case TricksActions.trickList.pagging.NEXT_PAGE: {
@@ -60,6 +65,26 @@ const tricks = (state = initialState, action) => {
             return {
                 ...state,
                 freeSearch: freeSearch
+            }
+        }
+        case TricksActions.trickList.filters.CHANGE_DIFFICULTY_RANGE: {
+            const difficultyRange = action.payload;
+            return {
+                ...state,
+                ranges: {
+                    ...state.ranges,
+                    [TRICKS_COLUMN_NAMES.difficulty]: difficultyRange
+                }
+            }
+        }
+        case TricksActions.trickList.filters.CHANGE_LEVEL_OF_RISK_RANGE: {
+            const levelOfRiskRange = action.payload;
+            return {
+                ...state,
+                ranges: {
+                    ...state.ranges,
+                    [TRICKS_COLUMN_NAMES.levelOfRisk]: levelOfRiskRange
+                }
             }
         }
         default:

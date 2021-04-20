@@ -1,0 +1,4 @@
+.sliderContainer {
+    display: flex;
+    flex-direction: column;
+}

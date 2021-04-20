@@ -5,6 +5,8 @@ const ADD_FILTER = "ADD_FILTER";
 const REMOVE_FILTER = "REMOVE_FILTER";
 const FREE_SEARCH_INPUT_CHANGE = "FREE_SEARCH_INPUT_CHANGE";
 const LOADING_NEXT_PAGE = "LOADING_NEXT_PAGE";
+const CHANGE_DIFFICULTY_RANGE = "CHANGE_DIFFICULTY_RANGE"; 
+const CHANGE_LEVEL_OF_RISK_RANGE = "CHANGE_LEVEL_OF_RISK_RANGE"; 
 
 const TricksActions = ({
     init: {
@@ -50,6 +52,16 @@ const TricksActions = ({
             freeSearchInputChange: (freeSearch) => ({
                 type: FREE_SEARCH_INPUT_CHANGE,
                 payload: freeSearch
+            }),
+            CHANGE_DIFFICULTY_RANGE: CHANGE_DIFFICULTY_RANGE,
+            changeDifficultyRange: (range) => ({
+                type: CHANGE_DIFFICULTY_RANGE,
+                payload: range,
+            }),
+            CHANGE_LEVEL_OF_RISK_RANGE: CHANGE_LEVEL_OF_RISK_RANGE,
+            changeLevelOfRiskRange: (range) => ({
+                type: CHANGE_LEVEL_OF_RISK_RANGE,
+                payload: range,
             })
         }
     },
