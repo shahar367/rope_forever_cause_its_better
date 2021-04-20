@@ -1,17 +1,20 @@
-import { Box, Chip, CircularProgress, Typography, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, Button, Chip, CircularProgress, IconButton, Tooltip, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { TRICKS_COLUMN_NAMES } from "../db";
 import { REDUCERS_NAMES } from "../redux/reducers";
 import styles from '../css/trickPage.module.css';
 import Level from "../components/level";
 import { useTranslation } from "react-i18next";
+import { ArrowBack, ArrowForward } from "@material-ui/icons";
 
 const TrickPage = () => {
 
     const { id } = useParams();
 
-    const { t } = useTranslation("common");
+    const history = useHistory();
+
+    const { t, i18n } = useTranslation("common");
 
     const theme = useTheme();
 
@@ -37,7 +40,14 @@ const TrickPage = () => {
     return (
         <Box className={styles.pageWrapper}>
             {isFinishFetching ? [
-                <Box className={styles.trickInfoContainer}>
+                <Box className={styles.backToTrickListButtonContainer} key={'back-to-trick-list-button-container'}>
+                    <Tooltip title={(<Typography>{t('infra.backToTrickList')}</Typography>)}>
+                        <IconButton color='default' onClick={() => history.push('/trickList')}>
+                            {i18n.language === 'he' ? <ArrowForward /> : <ArrowBack />}
+                        </IconButton>
+                    </Tooltip>
+                </Box>,
+                <Box className={styles.trickInfoContainer} key={'trick-page-info-container'}>
                     <Typography variant='h4'>{trick[TRICKS_COLUMN_NAMES.name]}</Typography>
                     {trick[TRICKS_COLUMN_NAMES.difficulty] || trick[TRICKS_COLUMN_NAMES.levelOfRisk] ?
                         <Box className={styles.trickLevels}>
@@ -49,9 +59,9 @@ const TrickPage = () => {
                             </Level> : null}
                         </Box> : null
                     }
-                    {setFilters()}  
+                    {setFilters()}
                 </Box>,
-                <Box className={styles.trickVideoContainer}>
+                <Box className={styles.trickVideoContainer} key={'trick-page-video-container'}>
                     <iframe width='100%' height='100%'
                         className={styles.trickVideo}
                         src={trick[TRICKS_COLUMN_NAMES.link]}

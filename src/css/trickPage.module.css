@@ -12,6 +12,10 @@
     height: 100%;
 }
 
+.backToTrickListButtonContainer {
+    margin-left: 8px;
+}
+
 .trickInfoContainer {
     display: flex;
     flex-direction: column;
