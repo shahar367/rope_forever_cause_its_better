@@ -1,4 +1,5 @@
 import { TricksActions } from "../actions";
+import { TRICKS_COLUMN_NAMES } from "../../db";
 
 const initialState = {
     trickListPageIndex: 1,
@@ -7,6 +8,10 @@ const initialState = {
     freeSearch: '',
     isLoadingAfterSearch: false,
     isLoadingNextPage: false,
+    ranges: {
+        [TRICKS_COLUMN_NAMES.difficulty]: [1, 10],
+        [TRICKS_COLUMN_NAMES.levelOfRisk]: [1, 10]
+    }
 }
 
 const tricks = (state = initialState, action) => {
@@ -17,7 +22,7 @@ const tricks = (state = initialState, action) => {
             return {
                 ...state,
                 list: trickList.elements,
-                maxNumberOfTricks: trickList.elements.length
+                maxNumberOfTricks: trickList.elements.length,
             }
         }
         case TricksActions.trickList.pagging.NEXT_PAGE: {
@@ -60,6 +65,32 @@ const tricks = (state = initialState, action) => {
             return {
                 ...state,
                 freeSearch: freeSearch
+            }
+        }
+        case TricksActions.trickList.filters.CHANGE_DIFFICULTY_RANGE: {
+            const difficultyRange = action.payload;
+            return {
+                ...state,
+                ranges: {
+                    ...state.ranges,
+                    [TRICKS_COLUMN_NAMES.difficulty]: difficultyRange
+                }
+            }
+        }
+        case TricksActions.trickList.filters.CHANGE_LEVEL_OF_RISK_RANGE: {
+            const levelOfRiskRange = action.payload;
+            return {
+                ...state,
+                ranges: {
+                    ...state.ranges,
+                    [TRICKS_COLUMN_NAMES.levelOfRisk]: levelOfRiskRange
+                }
+            }
+        }
+        case TricksActions.trickList.clear.CLEAR_TRICK_LIST: {
+            return {
+                ...state,
+                ...initialState
             }
         }
         default:

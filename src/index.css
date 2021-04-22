@@ -3,24 +3,12 @@ body {
   height: calc(var(--vh, 1vh) * 100);
   margin: 0;
   overflow: hidden;
-  overflow-y: auto;
-  overflow-y: overlay;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fefefe;
-}
-
-body::-webkit-scrollbar {
-  width: 4px;
-  background-color: transparent;
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 2px;
 }
 
 code {

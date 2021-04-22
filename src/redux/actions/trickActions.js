@@ -1,3 +1,5 @@
+//#region action types
+
 const INIT_TRICKS_LIST = "INIT_DB_ACTION_TYPE";
 const NEXT_PAGE = "NEXT_PAGE";
 const LOADING_LIST_AFTER_SEARCH = "LOADING_LIST_AFTER_SEARCH";
@@ -5,6 +7,11 @@ const ADD_FILTER = "ADD_FILTER";
 const REMOVE_FILTER = "REMOVE_FILTER";
 const FREE_SEARCH_INPUT_CHANGE = "FREE_SEARCH_INPUT_CHANGE";
 const LOADING_NEXT_PAGE = "LOADING_NEXT_PAGE";
+const CHANGE_DIFFICULTY_RANGE = "CHANGE_DIFFICULTY_RANGE";
+const CHANGE_LEVEL_OF_RISK_RANGE = "CHANGE_LEVEL_OF_RISK_RANGE";
+const CLEAR_TRICK_LIST = "CLEAR_TRICK_LIST"
+
+//#endregion
 
 const TricksActions = ({
     init: {
@@ -26,7 +33,7 @@ const TricksActions = ({
                 type: LOADING_NEXT_PAGE,
                 payload: isLoadingNextPage
             })
-            
+
         },
         loading: {
             LOADING_LIST_AFTER_SEARCH: LOADING_LIST_AFTER_SEARCH,
@@ -50,6 +57,22 @@ const TricksActions = ({
             freeSearchInputChange: (freeSearch) => ({
                 type: FREE_SEARCH_INPUT_CHANGE,
                 payload: freeSearch
+            }),
+            CHANGE_DIFFICULTY_RANGE: CHANGE_DIFFICULTY_RANGE,
+            changeDifficultyRange: (range) => ({
+                type: CHANGE_DIFFICULTY_RANGE,
+                payload: range,
+            }),
+            CHANGE_LEVEL_OF_RISK_RANGE: CHANGE_LEVEL_OF_RISK_RANGE,
+            changeLevelOfRiskRange: (range) => ({
+                type: CHANGE_LEVEL_OF_RISK_RANGE,
+                payload: range,
+            })
+        },
+        clear: {
+            CLEAR_TRICK_LIST: CLEAR_TRICK_LIST,
+            clearTrickList: () => ({
+                type: CLEAR_TRICK_LIST,
             })
         }
     },

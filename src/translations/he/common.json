@@ -1,7 +1,9 @@
 {
     "infra": {
         "search": "חיפוש",
-        "noResult": "סליחה לא נמצאו תוצאות"
+        "noResult": "סליחה לא נמצאו תוצאות",
+        "numberOfTricks": "מס' תרגילים",
+        "backToTrickList": "חזרה לרשימה"
     },
     "tricks": {
         "notFilmed": "לא צולם",

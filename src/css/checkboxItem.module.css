@@ -2,5 +2,5 @@
     min-width: 96px !important;
 }
 .item {
-    padding-right: 24px;
+    padding: 2px 0px 2px 64px !important
 }
