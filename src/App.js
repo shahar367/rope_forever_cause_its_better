@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { DBService, SHEETS_NAMES } from './db';
 import { InfraActions, TricksActions } from './redux/actions';
@@ -7,7 +7,7 @@ import './App.css';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import theme, { RTL } from './theme';
 import AppLayout from './layouts/appLayout';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import TrickListPage from './pages/trickListPage';
 import HomePage from './pages/homePage';
 import TrickPage from './pages/trickPage';
@@ -30,7 +30,7 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const fetchGoogleSheetsData = async () => {
+  const fetchGoogleSheetsData = useCallback(async () => {
     try {
       const googleSheetsData = await DBService.init()
       dispatch(TricksActions.init.initTricksList(googleSheetsData[SHEETS_NAMES.tricks]))
@@ -39,12 +39,12 @@ function App() {
     catch (err) {
       console.log(err);
     }
-  }
+  },[])
 
   useEffect(() => {
     bodyStyleCodedFunc(i18n);
     fetchGoogleSheetsData();
-  }, [dispatch])
+  }, [dispatch, i18n,fetchGoogleSheetsData])
 
 
   return (

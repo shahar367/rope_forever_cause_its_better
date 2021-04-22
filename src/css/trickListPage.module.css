@@ -170,9 +170,17 @@
         height: 80px;
         padding: 10px 0;
     }
+    .sidebar {
+        min-width: 160px;
+        padding-right: 32px;
+    }
 }
 
 @media screen and (max-width: 425px) {
+    .addedFiltersSearchInputContainer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
     .searchInput {
         max-width: 45%;
     }

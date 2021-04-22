@@ -8,6 +8,10 @@ const initialState = {
     freeSearch: '',
     isLoadingAfterSearch: false,
     isLoadingNextPage: false,
+    ranges: {
+        [TRICKS_COLUMN_NAMES.difficulty]: [1, 10],
+        [TRICKS_COLUMN_NAMES.levelOfRisk]: [1, 10]
+    }
 }
 
 const tricks = (state = initialState, action) => {
@@ -19,10 +23,6 @@ const tricks = (state = initialState, action) => {
                 ...state,
                 list: trickList.elements,
                 maxNumberOfTricks: trickList.elements.length,
-                ranges: {
-                    [TRICKS_COLUMN_NAMES.difficulty]: [1, 10],
-                    [TRICKS_COLUMN_NAMES.levelOfRisk]: [1, 10]
-                }
             }
         }
         case TricksActions.trickList.pagging.NEXT_PAGE: {
@@ -85,6 +85,12 @@ const tricks = (state = initialState, action) => {
                     ...state.ranges,
                     [TRICKS_COLUMN_NAMES.levelOfRisk]: levelOfRiskRange
                 }
+            }
+        }
+        case TricksActions.trickList.clear.CLEAR_TRICK_LIST: {
+            return {
+                ...state,
+                ...initialState
             }
         }
         default:

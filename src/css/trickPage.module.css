@@ -71,8 +71,13 @@
         align-items: center;
     }
 
+
+    .trickName {
+        flex: 0 1 auto;
+    }
+
     .trickLevels {
-        flex: 1 0 50%;
+        flex: 1 0 25%;
         align-items: flex-end;
     }
 

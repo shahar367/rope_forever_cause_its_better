@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { REDUCERS_NAMES } from "../redux/reducers";
 import { Box, CircularProgress, Divider, Drawer, IconButton, TextField, Typography, useMediaQuery, useTheme } from "@material-ui/core";
-import { Duo, MenuRounded } from "@material-ui/icons";
+import { MenuRounded } from "@material-ui/icons";
 import { useEventListener } from "../hooks/useEventListener";
 import { InfraActions, TricksActions } from "../redux/actions";
 import Filters from "../containers/filters";
@@ -12,8 +12,10 @@ import { useTranslation } from "react-i18next";
 import { TRICKS_COLUMN_NAMES } from "../db";
 import { useDebouncedCallback } from "use-debounce/lib";
 import SliderItem, { defaultSilderItem } from "../components/sliderItem";
+import clsx from "clsx";
 
 //#region helpMethod
+
 const getScrollTop = () => {
     return (document.getElementById('trickListMain').scrollTop !== undefined)
         ? document.getElementById('trickListMain').scrollTop
@@ -53,11 +55,13 @@ const TrickListPage = () => {
 
     const theme = useTheme();
 
-    const dispatch = useDispatch();
+    let trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : window;
 
     const mobile = useMediaQuery(`(max-width:${theme.breakpoints.values.sm}px)`);
 
-    let trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : window;
+    const dispatch = useDispatch();
+
+    //#region selector
 
     let { isFinishFetching, tricks, pageIndex, numberInPage, maxNumberOfTricks, ranges, isLoadingAfterSearch, openDrawer } = useSelector((state) => {
         let filteredList = [];
@@ -107,6 +111,8 @@ const TrickListPage = () => {
         }
     })
 
+    //#endregion
+
     const handlePaggination = () => {
         if (getScrollTop() + 1 < getDocumentHeight() - trickListMainElement.offsetHeight) return;
         else if (pageIndex * numberInPage > maxNumberOfTricks) return;
@@ -114,6 +120,8 @@ const TrickListPage = () => {
     }
 
     useCallback(useEventListener("scroll", handlePaggination, document.getElementById('trickListMain')), [trickListMainElement]);
+
+    //#region filters functions
 
     const handleToggleDrawer = () => {
         dispatch(InfraActions.homePage.toggleHomePageDrawer(!openDrawer))
@@ -135,6 +143,8 @@ const TrickListPage = () => {
     const handleLevelOfRiskRangeChange = (value) => {
         dispatch(TricksActions.trickList.filters.changeLevelOfRiskRange(value))
     }
+
+    //#endregion
 
     const trickListView = () => {
         if (isLoadingAfterSearch) {
@@ -160,7 +170,7 @@ const TrickListPage = () => {
     useEffect(() => {
         trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : window;
         return () => {
-            dispatch(TricksActions.trickList.pagging.setNextPageIndex(1))
+            // dispatch(TricksActions.trickList.clear.clearTrickList())
         }
     }, [isFinishFetching])
 
@@ -229,7 +239,9 @@ const TrickListPage = () => {
                         </Box>
                     </Box>
                     {mobile ?
-                        (<Drawer anchor='right' open={openDrawer} onClose={handleToggleDrawer}>
+                        (<Drawer anchor='right' classes={{
+                            paper: styles.sidebar
+                        }} open={openDrawer} onClose={handleToggleDrawer}>
                             <Filters />
                         </Drawer>) :
                         [
