@@ -7,8 +7,8 @@ const Category = ({ CategoryObject }) => {
     const { t } = useTranslation("common");
 
     return (
-        <Card className={styles.categoryCard} elevation={3}>
-            <CardActionArea>
+        <Card className={styles.categoryCard} elevation={3} key={`home-page-catogory-${CategoryObject.name}`}>
+            <CardActionArea onClick={CategoryObject.onClick}>
                 {/* <CardMedia
                     component="img"
                     alt={t(`categories.${CategoryObject.name}`)}

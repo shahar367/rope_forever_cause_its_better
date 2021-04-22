@@ -17,8 +17,8 @@ const AppLayout = (props) => {
                 <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleHomeButtonClicked}>
                     <HomeIcon />
                 </IconButton>
-                <Typography variant="h6">title</Typography>
-                <Button color="inherit">Login</Button>
+                {/* <Typography variant="h6">title</Typography> */}
+                {/* <Button color="inherit">Login</Button> */}
             </Toolbar>
         </AppBar>,
         <Box id={'appLayout'} className='appLayout' key={'the-air'}>

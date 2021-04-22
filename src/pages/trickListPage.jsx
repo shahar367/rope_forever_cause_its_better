@@ -12,7 +12,6 @@ import { useTranslation } from "react-i18next";
 import { TRICKS_COLUMN_NAMES } from "../db";
 import { useDebouncedCallback } from "use-debounce/lib";
 import SliderItem, { defaultSilderItem } from "../components/sliderItem";
-import clsx from "clsx";
 
 //#region helpMethod
 
@@ -38,12 +37,12 @@ const sliderMarks = [
         label: '1',
     },
     {
-        value: 5,
-        label: '5',
+        value: 3,
+        label: '3',
     },
     {
-        value: 10,
-        label: '10',
+        value: 6,
+        label: '6',
     },
 ]
 
@@ -207,6 +206,8 @@ const TrickListPage = () => {
                                     sliderOption={{
                                         ...defaultSilderItem,
                                         marks: sliderMarks,
+                                        min: 1,
+                                        max: 6,
                                         rangeMode: true,
                                         rangeValue: ranges[TRICKS_COLUMN_NAMES.difficulty],
                                         beforeChangeFunc: () => dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(true)),
@@ -220,6 +221,8 @@ const TrickListPage = () => {
                                     sliderOption={{
                                         ...defaultSilderItem,
                                         marks: sliderMarks,
+                                        min: 1,
+                                        max: 6,
                                         rangeMode: true,
                                         rangeValue: ranges[TRICKS_COLUMN_NAMES.levelOfRisk],
                                         beforeChangeFunc: () => dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(true)),

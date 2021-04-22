@@ -54,9 +54,7 @@ function App() {
           <CssBaseline />
           <AppLayout>
             <Switch>
-              <Route exact path='/' component={HomePage}>
-                {process.env.NODE_ENV === 'production' ? <Redirect to="/trickList" /> : null}
-              </Route>              
+              <Route exact path='/' component={HomePage}/>
               <Route path='/trickList' component={TrickListPage} />
               <Route path='/trick/:id' component={TrickPage} />
             </Switch>

@@ -9,8 +9,8 @@ const initialState = {
     isLoadingAfterSearch: false,
     isLoadingNextPage: false,
     ranges: {
-        [TRICKS_COLUMN_NAMES.difficulty]: [1, 10],
-        [TRICKS_COLUMN_NAMES.levelOfRisk]: [1, 10]
+        [TRICKS_COLUMN_NAMES.difficulty]: [1, 6],
+        [TRICKS_COLUMN_NAMES.levelOfRisk]: [1, 6]
     }
 }
 
