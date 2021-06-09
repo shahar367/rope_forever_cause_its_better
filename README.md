@@ -16,5 +16,5 @@ for now the only contributors is me and sagi and **only sagi have the option to 
 ```
 npm install
 add .env file like in the above
-npm start
+npm run dev
 ```

@@ -1,12 +1,13 @@
 import { Box } from '@material-ui/core';
 import Category from '../components/category';
-import beginners from '../assets/png/beginners.png';
-import intermediate from '../assets/png/intermediate.png';
-import advanced from '../assets/png/advanced.png';
+// import beginners from '../assets/png/beginners.png';
+// import intermediate from '../assets/png/intermediate.png';
+// import advanced from '../assets/png/advanced.png';
 import styles from '../css/homePage.module.css';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { TricksActions } from '../redux/actions';
+import { useEffect } from 'react';
 
 const categories = [
     { name: "allVideos", img: '' },
@@ -49,6 +50,10 @@ const HomePage = () => {
             }
         }
     }
+
+    useEffect(() => {        
+        dispatch(TricksActions.trickList.clear.clearTrickList())        
+    },[dispatch])
 
     return (
         <Box className={styles.catergoriesContainer}>

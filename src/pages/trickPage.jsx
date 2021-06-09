@@ -1,4 +1,4 @@
-import { Box, Button, Chip, CircularProgress, IconButton, Tooltip, Typography, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, Chip, CircularProgress, IconButton, Tooltip, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { TRICKS_COLUMN_NAMES } from "../db";
@@ -26,7 +26,7 @@ const TrickPage = () => {
     const handleTagClicked = (tag) => {
         dispatch(TricksActions.trickList.filters.addFilter(tag))
         dispatch(TricksActions.trickList.pagging.setNextPageIndex(1))
-        dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(false))
+        dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(true))
         history.push(`/trickList`);
     }
 

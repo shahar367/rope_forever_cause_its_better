@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 export const useEventListener = (eventName, handler, element) => {
 
     const ref = useRef(handler);
-
     useEffect(() => {
         ref.current = handler
     }, [handler])

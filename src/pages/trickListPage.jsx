@@ -50,11 +50,11 @@ const sliderMarks = [
 
 const TrickListPage = () => {
 
+    let trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : null;
+
     const { t } = useTranslation('common');
 
     const theme = useTheme();
-
-    let trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : window;
 
     const mobile = useMediaQuery(`(max-width:${theme.breakpoints.values.sm}px)`);
 
@@ -113,12 +113,14 @@ const TrickListPage = () => {
     //#endregion
 
     const handlePaggination = () => {
+        console.log(getScrollTop() + 1 < getDocumentHeight() - trickListMainElement.offsetHeight);
+        console.log(pageIndex * numberInPage > maxNumberOfTricks);
         if (getScrollTop() + 1 < getDocumentHeight() - trickListMainElement.offsetHeight) return;
         else if (pageIndex * numberInPage > maxNumberOfTricks) return;
         dispatch(TricksActions.trickList.pagging.setNextPageIndex(++pageIndex));
     }
 
-    useCallback(useEventListener("scroll", handlePaggination, document.getElementById('trickListMain')), [trickListMainElement]);
+    useEventListener("scroll", handlePaggination, trickListMainElement, trickListMainElement !== null);
 
     //#region filters functions
 
@@ -167,11 +169,17 @@ const TrickListPage = () => {
     const view = useCallback(() => trickListView(), [tricks, maxNumberOfTricks, isLoadingAfterSearch])
 
     useEffect(() => {
-        trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : window;
+        trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : null;
+        console.log(trickListMainElement);
+        if (isLoadingAfterSearch) {
+            setTimeout(() => {
+                dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(false));
+            }, 300);
+        }
         return () => {
             // dispatch(TricksActions.trickList.clear.clearTrickList())
         }
-    }, [isFinishFetching])
+    }, [isFinishFetching, isLoadingAfterSearch])
 
     return (
         <Box className={styles.pageWrapper}>
