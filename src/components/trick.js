@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 
-const Trick = ({ trick }) => {
+const Trick = ({ trick, CardMode = false }) => {
 
     const history = useHistory();
 
