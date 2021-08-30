@@ -7,6 +7,7 @@ const publicGoogleSheets = process.env.REACT_APP_PUBLIC_GOOGLE_SHEETS;
 
 const getGoogleSheetData = async () => {
     try {
+        console.log(publicGoogleSheets);
         let fetcher = await fetch(publicGoogleSheets, { Headers: { 'Access-Control-Allow-Origin': '*' } })
         let fetchJson = await fetcher.json();
         let headers = fetchJson.values[0];
