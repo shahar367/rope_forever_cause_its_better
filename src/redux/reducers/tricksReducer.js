@@ -17,11 +17,12 @@ const initialState = {
 const tricks = (state = initialState, action) => {
     switch (action.type) {
         case TricksActions.init.INIT_TRICKS_LIST: {
-            const trickList = action.payload.map((trick, index) => ({ ...trick, id: index }));
+            const trickList = action.payload;
+            let finalTrickLIst = trickList.map((trick, index) => ({ ...trick, id: index }));
             return {
                 ...state,
-                list: trickList,
-                maxNumberOfTricks: trickList.length,
+                list: finalTrickLIst,
+                maxNumberOfTricks: finalTrickLIst.length,
             }
         }
         case TricksActions.trickList.pagging.NEXT_PAGE: {

@@ -11,6 +11,7 @@ const getGoogleSheetData = async () => {
         let fetchJson = await fetcher.json();
         let headers = fetchJson.values[0];
         let data = [...fetchJson.values.splice(1,fetchJson.values.length)].map((element) => elementBuilder(headers,element));
+        console.log(data);
         return data;
     }
     catch (err) {
@@ -35,7 +36,6 @@ const elementBuilder = (headers,element) => {
                 if (TRICKS_COLUMN_NAMES.link in element) element[TRICKS_COLUMN_NAMES.link] = MakeEmbeded(element[TRICKS_COLUMN_NAMES.link])
                 return element;
     })(fullElement);
-    console.log(fullElement);
     return fullElement;
 }
 
