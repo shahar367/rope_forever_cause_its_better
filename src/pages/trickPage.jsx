@@ -26,7 +26,7 @@ const TrickPage = () => {
     const handleTagClicked = (tag) => {
         dispatch(TricksActions.trickList.filters.addFilter(tag))
         dispatch(TricksActions.trickList.pagging.setNextPageIndex(1))
-        dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(true))
+        dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(false))
         history.push(`/trickList`);
     }
 

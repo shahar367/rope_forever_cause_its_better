@@ -33,7 +33,7 @@ function App() {
   const fetchGoogleSheetsData = useCallback(async () => {
     try {
       const googleSheetsData = await DBService.init()
-      dispatch(TricksActions.init.initTricksList(googleSheetsData[SHEETS_NAMES.tricks]))
+      dispatch(TricksActions.init.initTricksList(googleSheetsData))
       dispatch(InfraActions.onInit.dbFetching.setIsDBFinishFetching(true))
     }
     catch (err) {

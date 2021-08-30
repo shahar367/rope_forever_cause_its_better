@@ -1,4 +1,4 @@
-import getGoogleSheetData from "./tabletop";
+import getGoogleSheetData from "./googleSheetsFetcher";
 
 const DBService = {
     init: async () => {
