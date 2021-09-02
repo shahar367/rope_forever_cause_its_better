@@ -8,9 +8,14 @@ const publicGoogleSheetsTricksSheet = process.env.REACT_APP_PUBLIC_GOOGLE_SHEETS
 
 const getGoogleSheetData = async () => {
     try {
-        let fetcher = await axios.get(publicGoogleSheetsTricksSheet, { Headers: { 'Access-Control-Allow-Origin': '*' }, baseURL: "", proxy: "" })
-        debugger;
+        let fetcher = await axios.get(publicGoogleSheetsTricksSheet, {
+            Headers: { 'Access-Control-Allow-Origin': '*' },
+            headers: { "Accept": "application/json" },
+            baseURL: "",
+            proxy: "",
+        })
         let fetchData;
+        console.log(fetcher);
         console.log(`url: ${fetcher.config.url}`);
         console.log(`baseURL: ${fetcher.config.baseURL}`);
         console.log(`fetch status: ${fetcher.status}`);
