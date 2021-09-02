@@ -19,7 +19,7 @@ const getGoogleSheetData = async () => {
             console.error(fetcher.statusText);
             throw Error(fetcher.statusText);
         }
-        console.log(fetcher.data);
+        console.log(fetchData);
         let headers = fetchData.values[0];
         let data = [...fetchData.values.splice(1, fetchData.values.length)].map((element) => elementBuilder(headers, element));
         console.log(data);
