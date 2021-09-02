@@ -1,17 +1,18 @@
 import tableTop from "tabletop";
 // import SHEETS_NAMES from "./sheetsNames";
 import TRICKS_COLUMN_NAMES from "./tricksColumnNames";
-import fetch from 'isomorphic-fetch';
+// import fetch from 'isomorphic-fetch';
+import axios from "axios";
 
-const publicGoogleSheets = process.env.REACT_APP_PUBLIC_GOOGLE_SHEETS;
+const publicGoogleSheetsTricksSheet = process.env.REACT_APP_PUBLIC_GOOGLE_SHEETS_TRICKS_SHEET;
 
 const getGoogleSheetData = async () => {
     try {
-        let fetcher = await fetch(`/${publicGoogleSheets}`, { Headers: { 'Access-Control-Allow-Origin': '*' }})
-        console.log(fetcher);
-        let fetchJson = await fetcher.json();
-        let headers = fetchJson.values[0];
-        let data = [...fetchJson.values.splice(1,fetchJson.values.length)].map((element) => elementBuilder(headers,element));
+        let fetcher = await axios.get(publicGoogleSheetsTricksSheet, { Headers: { 'Access-Control-Allow-Origin': '*' } })
+        console.log(fetcher.data);
+        let fetchData = await fetcher.data;
+        let headers = fetchData.values[0];
+        let data = [...fetchData.values.splice(1, fetchData.values.length)].map((element) => elementBuilder(headers, element));
         console.log(data);
         return data;
     }
@@ -20,22 +21,22 @@ const getGoogleSheetData = async () => {
     }
 }
 
-const elementBuilder = (headers,element) => {
+const elementBuilder = (headers, element) => {
     let fullElement = {};
     for (let index = 0; index < headers.length; index++) {
         let currentHeader = headers[index];
         fullElement = {
             ...fullElement,
             [currentHeader]: element[index]
-        }    
+        }
     }
     fullElement = ((element) => {
-                if (TRICKS_COLUMN_NAMES.filmed in element) element[TRICKS_COLUMN_NAMES.filmed] = ToBoolean(element[TRICKS_COLUMN_NAMES.filmed])
-                Object.values(TRICKS_COLUMN_NAMES.filters).forEach(filter => {
-                    if (filter in element) element[filter] = ToBoolean(element[filter])
-                })
-                if (TRICKS_COLUMN_NAMES.link in element) element[TRICKS_COLUMN_NAMES.link] = MakeEmbeded(element[TRICKS_COLUMN_NAMES.link])
-                return element;
+        if (TRICKS_COLUMN_NAMES.filmed in element) element[TRICKS_COLUMN_NAMES.filmed] = ToBoolean(element[TRICKS_COLUMN_NAMES.filmed])
+        Object.values(TRICKS_COLUMN_NAMES.filters).forEach(filter => {
+            if (filter in element) element[filter] = ToBoolean(element[filter])
+        })
+        if (TRICKS_COLUMN_NAMES.link in element) element[TRICKS_COLUMN_NAMES.link] = MakeEmbeded(element[TRICKS_COLUMN_NAMES.link])
+        return element;
     })(fullElement);
     return fullElement;
 }
