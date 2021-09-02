@@ -8,13 +8,18 @@ const publicGoogleSheetsTricksSheet = process.env.REACT_APP_PUBLIC_GOOGLE_SHEETS
 
 const getGoogleSheetData = async () => {
     try {
-        let fetcher = await axios.get(publicGoogleSheetsTricksSheet, { Headers: { 'Access-Control-Allow-Origin': '*' }, baseURL: "" })
+        let fetcher = await axios.get(publicGoogleSheetsTricksSheet, { Headers: { 'Access-Control-Allow-Origin': '*' }, baseURL: "", proxy: "" })
+        debugger;
         let fetchData;
         console.log(`url: ${fetcher.config.url}`);
         console.log(`baseURL: ${fetcher.config.baseURL}`);
-        console.log(`fetch call: ${fetcher}`);
-        if (fetcher.status = 200) { fetchData = fetcher.data; }
-        else { Error(fetcher.statusText); }
+        console.log(`fetch call: ${fetcher.statusText}`);
+        if (fetcher.status = 200) { fetchData = await fetcher.data; }
+        else {
+            console.error(fetcher.statusText);
+            throw Error(ffff);
+        }
+
         console.log(fetcher.data);
         let headers = fetchData.values[0];
         let data = [...fetchData.values.splice(1, fetchData.values.length)].map((element) => elementBuilder(headers, element));
