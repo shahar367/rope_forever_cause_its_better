@@ -10,10 +10,11 @@ const getGoogleSheetData = async () => {
     try {
         let fetcher = await axios.get(publicGoogleSheetsTricksSheet, { Headers: { 'Access-Control-Allow-Origin': '*' }, baseURL: "" })
         let fetchData;
-        console.log(fetcher.config.baseURL);
-        console.log(fetcher.config.url);
+        console.log(`url: ${fetcher.config.url}`);
+        console.log(`baseURL: ${fetcher.config.baseURL}`);
+        console.log(`fetch call: ${fetcher}`);
         if (fetcher.status = 200) { fetchData = fetcher.data; }
-        else throw Error(fetcher.statusText);
+        else { Error(fetcher.statusText); }
         console.log(fetcher.data);
         let headers = fetchData.values[0];
         let data = [...fetchData.values.splice(1, fetchData.values.length)].map((element) => elementBuilder(headers, element));
