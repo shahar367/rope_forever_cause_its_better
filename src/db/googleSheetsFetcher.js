@@ -17,9 +17,8 @@ const getGoogleSheetData = async () => {
         if (fetcher.status = 200) { fetchData = await fetcher.data; }
         else {
             console.error(fetcher.statusText);
-            throw Error(ffff);
+            throw Error(fetcher.statusText);
         }
-
         console.log(fetcher.data);
         let headers = fetchData.values[0];
         let data = [...fetchData.values.splice(1, fetchData.values.length)].map((element) => elementBuilder(headers, element));
