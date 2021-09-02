@@ -13,7 +13,8 @@ const getGoogleSheetData = async () => {
         let fetchData;
         console.log(`url: ${fetcher.config.url}`);
         console.log(`baseURL: ${fetcher.config.baseURL}`);
-        console.log(`fetch call: ${fetcher.statusText}`);
+        console.log(`fetch status: ${fetcher.status}`);
+        console.log(`fetch status text: ${fetcher.statusText}`);
         if (fetcher.status = 200) { fetchData = await fetcher.data; }
         else {
             console.error(fetcher.statusText);
