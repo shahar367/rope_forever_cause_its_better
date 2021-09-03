@@ -12,9 +12,17 @@ app.use('/', router);
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(cors())
 
-app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+if (process.env.NODE_ENV === 'development') {
+    app.get('/*', function (req, res) {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
+}
+
+if (process.env.NODE_ENV === 'production') {
+    app.get('/*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 router.get('/googleSheetTricks', async function (req, res) {
     console.log(getTrickListURL);
