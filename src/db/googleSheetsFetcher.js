@@ -4,11 +4,10 @@ import TRICKS_COLUMN_NAMES from "./tricksColumnNames";
 // import fetch from 'isomorphic-fetch';
 import axios from "axios";
 
-const publicGoogleSheetsTricksSheet = process.env.REACT_APP_PUBLIC_GOOGLE_SHEETS_TRICKS_SHEET;
-
 const getGoogleSheetData = async () => {
     try {
-        let fetchData = await axios.get(publicGoogleSheetsTricksSheet, {
+        let url = '/googleSheetTricks'
+        let fetchData = await axios.get(url, {
             Headers: { 'Access-Control-Allow-Origin': '*' },
             headers: { "Accept": "application/json" },
             baseURL: "",
@@ -16,7 +15,7 @@ const getGoogleSheetData = async () => {
         }).then(response => {
             console.log(response);
             let result;
-            response.status === 200 ? result = response.data : result = response.statusText
+            response.status === 200 ? result = response.data : result = response.statusText    
             return result;
         })
         console.log(fetchData);
