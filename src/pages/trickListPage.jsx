@@ -50,7 +50,7 @@ const sliderMarks = [
 
 const TrickListPage = () => {
 
-    let trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : null;
+    let trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : window;
 
     const { t } = useTranslation('common');
 
@@ -113,14 +113,10 @@ const TrickListPage = () => {
     //#endregion
 
     const handlePaggination = () => {
-        console.log(getScrollTop() + 1 < getDocumentHeight() - trickListMainElement.offsetHeight);
-        console.log(pageIndex * numberInPage > maxNumberOfTricks);
         if (getScrollTop() + 1 < getDocumentHeight() - trickListMainElement.offsetHeight) return;
         else if (pageIndex * numberInPage > maxNumberOfTricks) return;
         dispatch(TricksActions.trickList.pagging.setNextPageIndex(++pageIndex));
     }
-
-    useEventListener("scroll", handlePaggination, trickListMainElement, trickListMainElement !== null);
 
     //#region filters functions
 
@@ -169,17 +165,19 @@ const TrickListPage = () => {
     const view = useCallback(() => trickListView(), [tricks, maxNumberOfTricks, isLoadingAfterSearch])
 
     useEffect(() => {
-        trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : null;
+        trickListMainElement = document.getElementById('trickListMain') ? document.getElementById('trickListMain') : window;
         console.log(trickListMainElement);
+        trickListMainElement.addEventListener("scroll", handlePaggination);
         if (isLoadingAfterSearch) {
             setTimeout(() => {
                 dispatch(TricksActions.trickList.loading.setIsLoadingListAfterSearch(false));
             }, 300);
         }
         return () => {
+            trickListMainElement.removeEventListener("scroll", handlePaggination);
             // dispatch(TricksActions.trickList.clear.clearTrickList())
         }
-    }, [isFinishFetching, isLoadingAfterSearch])
+    }, [isFinishFetching])
 
     return (
         <Box className={styles.pageWrapper}>
